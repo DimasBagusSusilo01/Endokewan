@@ -1,0 +1,132 @@
+<html>
+  <head>
+    <title>ThreeJS - HTML on Cube Side</title>
+    <style>
+      body { margin: 0; overflow: hidden; font-family: sans-serif; }
+      /* CSS untuk tulisan yang akan ditempel ke box */
+      .label-html {
+        width: 300px; /* Resolusi virtual */
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: transparent;
+        color: white;
+        font-size: 40px;
+        font-weight: bold;
+        border: 4px solid white;
+        pointer-events: none; /* Supaya orbit controls tetap jalan */
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+      }
+
+      #ui-container {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 15px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="ui-container">
+      <strong>Selamat Datang Master!</strong>
+    </div>
+
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/"
+      }
+    }
+    </script>
+
+    <script type="module">
+      import * as THREE from "three";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+      // Import renderer khusus CSS3D
+      import { CSS3DRenderer, CSS3DObject } from "three/addons/renderers/CSS3DRenderer.js";
+
+      // 1. RENDERER STANDAR (WebGL)
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+      
+      // 2. RENDERER CSS3D (Lapisan untuk HTML)
+      const labelRenderer = new CSS3DRenderer();
+      labelRenderer.setSize(window.innerWidth, window.innerHeight);
+      labelRenderer.domElement.style.position = 'absolute';
+      labelRenderer.domElement.style.top = '0';
+      labelRenderer.domElement.style.pointerEvents = 'none'; // Biar mouse bisa klik tembus ke canvas
+      document.body.appendChild(labelRenderer.domElement);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+      const orbit = new OrbitControls(camera, renderer.domElement);
+      camera.position.set(-5, 5, 5);
+      orbit.update();
+
+      // BUAT BOX
+      const boxWidth = 3, boxHeight = 4, boxDepth = 0.75;
+      const boxgeometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+      const boxmaterial = [
+        new THREE.MeshBasicMaterial({ color: 0xD92B7C }), // Kanan
+        new THREE.MeshBasicMaterial({ color: 0xD92B7C }), // Kiri
+        new THREE.MeshBasicMaterial({ color: 0xD9882B }), // Atas
+        new THREE.MeshBasicMaterial({ color: 0xD9882B }), // Bawah
+        new THREE.MeshBasicMaterial({ color: 0x2BD989 }), // Depan (Hijau)
+        new THREE.MeshBasicMaterial({ color: 0x2B7CD9 })  // Belakang
+      ];
+      const kotak = new THREE.Mesh(boxgeometry, boxmaterial);
+      scene.add(kotak);
+
+      // --- MENEMPELKAN HTML KE SISI DEPAN DENGAN PENGHALANG (OCCLUSION) ---
+
+const groupLabel = new THREE.Group();
+
+// 1. Elemen HTML asli (Teks)
+const div = document.createElement('div');
+div.className = 'label-html';
+div.textContent = 'Dimas-Chan Wa Kawaiisugiru';
+const labelObj = new CSS3DObject(div);
+labelObj.scale.set(0.01, 0.01, 0.01);
+labelObj.position.set(0, 0, 0.02); // Letakkan sedikit di depan Plane WebGL
+groupLabel.add(labelObj);
+
+// 2. Buat PENGHALANG di dunia WebGL (Occluder Mesh)
+// Ini adalah Plane transparan yang bertugas memblokir rendering CSS3D di belakangnya
+const occluderGeometry = new THREE.PlaneGeometry(boxWidth, boxHeight);
+const occluderMaterial = new THREE.MeshBasicMaterial({
+    colorWrite: false, // RAHASIA: Tidak menggambar warna, tapi tetap memblokir kedalaman (Z-Buffer)
+});
+const occluderMesh = new THREE.Mesh(occluderGeometry, occluderMaterial);
+occluderMesh.position.set(0, 0, 0.01); 
+groupLabel.add(occluderMesh);
+
+// 3. Posisikan seluruh grup ke permukaan depan kotak
+groupLabel.position.set(0, 0, boxDepth / 2);
+kotak.add(groupLabel);
+
+      renderer.setClearColor(0xB7FFC2);
+
+      function animasi() {
+        renderer.render(scene, camera);
+        labelRenderer.render(scene, camera); // Render lapisan HTML-nya
+      }
+      renderer.setAnimationLoop(animasi);
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        labelRenderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    </script>
+  </body>
+</html>
