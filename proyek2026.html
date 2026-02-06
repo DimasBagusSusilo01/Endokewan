@@ -71,6 +71,9 @@
       const orbit = new OrbitControls(camera, renderer.domElement);
       camera.position.set(-5, 5, 5);
       orbit.update();
+      const raycaster = new THREE.Raycaster();
+      const labelWorldPos = new THREE.Vector3();
+
 
       // BUAT BOX
       const boxWidth = 3, boxHeight = 4, boxDepth = 0.75;
@@ -84,6 +87,10 @@
         new THREE.MeshBasicMaterial({ color: 0x2B7CD9 })  // Belakang
       ];
       const kotak = new THREE.Mesh(boxgeometry, boxmaterial);
+      // normal lokal sisi depan box (+Z)
+      const frontNormal = new THREE.Vector3(0, 0, 1);
+      const frontNormalWorld = new THREE.Vector3();
+
       scene.add(kotak);
 
       // --- MENEMPELKAN HTML KE SISI DEPAN DENGAN PENGHALANG (OCCLUSION) ---
@@ -98,28 +105,63 @@ const labelObj = new CSS3DObject(div);
 labelObj.scale.set(0.01, 0.01, 0.01);
 labelObj.position.set(0, 0, 0.02); // Letakkan sedikit di depan Plane WebGL
 groupLabel.add(labelObj);
-
-// 2. Buat PENGHALANG di dunia WebGL (Occluder Mesh)
-// Ini adalah Plane transparan yang bertugas memblokir rendering CSS3D di belakangnya
-const occluderGeometry = new THREE.PlaneGeometry(boxWidth, boxHeight);
-const occluderMaterial = new THREE.MeshBasicMaterial({
-    colorWrite: false, // RAHASIA: Tidak menggambar warna, tapi tetap memblokir kedalaman (Z-Buffer)
-});
-const occluderMesh = new THREE.Mesh(occluderGeometry, occluderMaterial);
-occluderMesh.position.set(0, 0, 0.01); 
-groupLabel.add(occluderMesh);
-
 // 3. Posisikan seluruh grup ke permukaan depan kotak
 groupLabel.position.set(0, 0, boxDepth / 2);
 kotak.add(groupLabel);
 
+function updateLabelOcclusion() {
+  // posisi dunia label
+  labelObj.getWorldPosition(labelWorldPos);
+
+  // arah kamera → label
+  const camToLabel = labelWorldPos.clone()
+    .sub(camera.position)
+    .normalize();
+
+  // normal sisi depan box dalam world space
+  frontNormalWorld.copy(frontNormal)
+    .transformDirection(kotak.matrixWorld);
+
+  // arah dari label ke kamera
+  const labelToCam = camera.position.clone()
+    .sub(labelWorldPos)
+    .normalize();
+
+  if (frontNormalWorld.dot(labelToCam) <= 0) {
+    div.style.display = 'none';
+    return;
+  }
+
+  // ---- OCCLUSION CHECK ----
+  raycaster.set(camera.position, camToLabel);
+  const intersects = raycaster.intersectObject(kotak, true);
+
+  if (intersects.length > 0) {
+    const hitDistance = intersects[0].distance;
+    const labelDistance = camera.position.distanceTo(labelWorldPos);
+
+    if (hitDistance < labelDistance - 0.05) {
+      div.style.display = 'none';
+      return;
+    }
+  }
+
+  div.style.display = 'block';
+}
+
+
+
       renderer.setClearColor(0xB7FFC2);
 
-      function animasi() {
+      function animate() {
+        requestAnimationFrame(animate);
+        updateLabelOcclusion();
         renderer.render(scene, camera);
-        labelRenderer.render(scene, camera); // Render lapisan HTML-nya
-      }
-      renderer.setAnimationLoop(animasi);
+        labelRenderer.render(scene, camera);
+}
+
+animate();
+
 
       window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
