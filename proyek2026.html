@@ -4,7 +4,7 @@
     <style>
       body { margin: 0; overflow: hidden; font-family: sans-serif; }
       /* CSS untuk tulisan yang akan ditempel ke box */
-      .label-html {
+      .panel, belakanghtml {
         width: 300px; /* Resolusi virtual */
         height: 400px;
         display: flex;
@@ -93,69 +93,75 @@
 
       scene.add(kotak);
 
-      // --- MENEMPELKAN HTML KE SISI DEPAN DENGAN PENGHALANG (OCCLUSION) ---
+      const panels = [];
+      // INI ADALAH FUNGSI BIKIN TAMPILAN BOX
+      function bikinpanel({element, position, rotation, normal}) {
+        const group = new THREE.Group();
 
-const groupLabel = new THREE.Group();
+        const obj = new CSS3DObject(element);
+        obj.scale.set(0.01, 0.01, 0.01);
+        obj.position.set(0, 0, 0.02);
 
-// 1. Elemen HTML asli (Teks)
-const div = document.createElement('div');
-div.className = 'label-html';
-div.textContent = 'Dimas-Chan Wa Kawaiisugiru';
-const labelObj = new CSS3DObject(div);
-labelObj.scale.set(0.01, 0.01, 0.01);
-labelObj.position.set(0, 0, 0.02); // Letakkan sedikit di depan Plane WebGL
-groupLabel.add(labelObj);
-// 3. Posisikan seluruh grup ke permukaan depan kotak
-groupLabel.position.set(0, 0, boxDepth / 2);
-kotak.add(groupLabel);
-
-function updateLabelOcclusion() {
-  // posisi dunia label
-  labelObj.getWorldPosition(labelWorldPos);
-
-  // arah kamera → label
-  const camToLabel = labelWorldPos.clone()
-    .sub(camera.position)
-    .normalize();
-
-  // normal sisi depan box dalam world space
-  frontNormalWorld.copy(frontNormal)
-    .transformDirection(kotak.matrixWorld);
-
-  // arah dari label ke kamera
-  const labelToCam = camera.position.clone()
-    .sub(labelWorldPos)
-    .normalize();
-
-  if (frontNormalWorld.dot(labelToCam) <= 0) {
-    div.style.display = 'none';
-    return;
-  }
-
-  // ---- OCCLUSION CHECK ----
-  raycaster.set(camera.position, camToLabel);
-  const intersects = raycaster.intersectObject(kotak, true);
-
-  if (intersects.length > 0) {
-    const hitDistance = intersects[0].distance;
-    const labelDistance = camera.position.distanceTo(labelWorldPos);
-
-    if (hitDistance < labelDistance - 0.05) {
-      div.style.display = 'none';
-      return;
-    }
-  }
-
-  div.style.display = 'block';
+        group.add(obj);
+        group.position.copy(position);
+        group.rotation.copy(rotation);
+        kotak.add(group);
+        return { group, obj, element, normal};
 }
+      
+// INI ADALAH TAMPILAN DEPAN BOX
+      const frontEl = document.createElement('div');
+      frontEl.className = 'panel';
+      frontEl.innerHTML = `
+        <h2>MASTER</h2>
+        <button>Play</button>`;
+      const frontPanel = createBoxPanel({
+        element: frontEl,
+        position: new THREE.Vector3(0, 0, boxDepth / 2),
+        rotation: new THREE.Vector3(0, 0, 0),
+        normal: new THREE.Vector3(0, 0, 1)});
+
+//INI ADALAH TAMPILAN BELAKANG BOX
+      const backEl = document.createElement('div');
+      backEl.className = 'panel';
+      backEl.innerHTML = `
+        <h2>CASING</h2>`;
+      const backPanel = createBoxPanel({
+        element: backEl,
+        position: new THREE.Vector3(0, 0, -boxDepth / 2),
+        rotation: new THREE.Vector3(0, Math.PI, 0),
+        normal: new THREE.Vector3(0, 0, -1)});
+
+      panels.push(backPanel,frontPanel);
 
 
+//INI ADALAH FUNGSI OCCLUSION (SUPAYA TAMPILAN TIDAK TEMBUS PANDANG)
+      function updatePanelOcclusion(panel) {
+        const { obj, element, normal } = panel;
+        obj.getWorldPosition(labelWorldPos);
+
+        const camToPanel = labelWorldPos.clone().sub(camera.position).normalize();
+        const normalWorld = normal.clone().transformDirection(kotak.matrixWorld);
+        const panelToCam = camera.position.clone().sub(labelWorldPos).normalize();
+
+        if (normalWorld.dot(panelToCam) <= 0) {
+          element.style.display = 'none';
+          return;}
+
+        raycaster.set(camera.position, camToPanel);
+        const hits = raycaster.intersectObject(kotak, true);
+
+        if (hits.length > 0) {
+          if (hits[0].distance < camera.position.distanceTo(labelWorldPos) - 0.05) {
+            element.style.display = 'none';
+            return;}}
+        element.style.display = 'block';}
 
       renderer.setClearColor(0xB7FFC2);
 
       function animate() {
         requestAnimationFrame(animate);
-        updateLabelOcclusion();
+        panels.forEach(updatePanelOcclusion);
         renderer.render(scene, camera);
         labelRenderer.render(scene, camera);
 }
