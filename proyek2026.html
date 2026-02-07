@@ -115,7 +115,7 @@
       frontEl.innerHTML = `
         <h2>MASTER</h2>
         <button>Play</button>`;
-      const frontPanel = createBoxPanel({
+      const frontPanel = bikinpanel({
         element: frontEl,
         position: new THREE.Vector3(0, 0, boxDepth / 2),
         rotation: new THREE.Vector3(0, 0, 0),
@@ -126,7 +126,7 @@
       backEl.className = 'panel';
       backEl.innerHTML = `
         <h2>CASING</h2>`;
-      const backPanel = createBoxPanel({
+      const backPanel = bikinpanel({
         element: backEl,
         position: new THREE.Vector3(0, 0, -boxDepth / 2),
         rotation: new THREE.Vector3(0, Math.PI, 0),
