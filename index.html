@@ -1,157 +1,306 @@
-<html>
-    <head>
-        <title>Ahmad Solikhin</title>
-        <style>
-            body{
-                margin: 0;
-                padding: 0;
-            }
-            header{
-                height: 20vh;
-                background-color: darksalmon;
-            }
-            main{
-                height: 60vh;
-                background-color: blanchedalmond;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-            .badan{
-                width: 120px;
-                height: 120px;
-                border-radius: 30%;
-                background-color: lightsalmon;
-                display: flex;
-                flex-direction: column;
-            }
-            .mata{
-                width: 70%;
-                height: 40%;
-                display: flex;
-                flex-direction: row;
-                transform: translate(20px, 30px);
-                position: relative;
-                overflow: hidden;
-            }
-            .mata1{
-                background-color: black;
-                width: 35%;
-                height: 130%;
-                margin-right: 20px;
-                border-radius: 100%;
-            }
-            .mata2{
-                background-color: black;
-                width: 35%;
-                height: 130%;
-                border-radius: 100%;
-            }
-            .mulut{
-                width: 70%;
-                height: 40%;
-                margin: 60px 20px 10px 8px;
-                border: 10px solid white;
-                border-top: none;
-                border-radius: 0px 0px 100px 100px;
-                transition: all 1s ease-in-out;
-            }
-            .mulut:hover{
-                width: 70%;
-                height: 40%;
-                margin: 60px 20px 10px 8px;
-                border-top: none;
-                background-color: white;
-                border: 10px solid white;
-                border-radius: 0px 0px 100px 100px;
-            }
-            footer{
-                height: 20vh;
-                background-color: darksalmon;
-            }
-
-        </style>
-    </head>
-    <body>
-        <header></header>
-        <main>
-            <div class="badan">
-                <div class="mata" id="mata"><div class="mata1" id="mata1"></div><div class="mata2" id="mata2"></div></div>
-                <div class="mulut"></div>
-            </div>
-        </main>
-        <footer></footer>
-        <script>
-            let mata1 = document.getElementById("mata1");
-            let mata2 = document.getElementById("mata2");
-            let mata = document.getElementById("mata");
-            let pupil = [mata1, mata2];
-
-            mata.addEventListener("mousemove", (event) =>{
-                let relatifx = event.offsetX;
-                let relatify = event.offsetY;
-                pupil.forEach(pupil => {
-                    gerak(pupil, relatifx, relatify);
-                });
-            });
-            function gerak(pupil,kursorx, kursory){
-                let ukuranpupil = pupil.offsetWidth;
-                let lebarmata = mata.offsetWidth;
-                let tinggimata = mata.offsetHeight;
-
-                const maxMovementX = (lebarmata / 2) - (ukuranpupil / 2);
-                const maxMovementY = (tinggimata / 2) - (ukuranpupil / 2);
-                // Posisi tengah objek induk
-                const centerX = lebarmata / 2;
-                const centerY = tinggimata / 2;
-
-  // Jarak kursor dari pusat induk
-                let offsetX = kursorx - centerX;
-                let offsetY = kursory - centerY;
-
-  // --- PEMBATASAN (CLAMPING) ---
-  // Pastikan pupil tetap berada di dalam area pergerakan yang diperbolehkan
-  
-  // 3. Hitung Jarak Euclidean (Pythagoras) dari Pusat
-                const distance = Math.sqrt(offsetX * offsetX + offsetY * offsetY);
-
-  // 4. Batasi pergerakan agar tidak melewati batas lingkaran
-  // Kita ingin bola mata (pupil) hanya bergerak sejauh 50% dari radius kontainer mata (eye)
-  // Anda bisa mengatur nilai ini untuk memvariasikan seberapa besar pergerakannya
-                const radiusMovement = maxMovementY * 0.5; // Batasi pergerakan hingga 50% radius Y
-
-                if (distance > radiusMovement) {
-    // Jika kursor terlalu jauh, skala kembali posisi pupil ke batas radiusMovement
-                    const scaleFactor = radiusMovement / distance;
-                    offsetX *= scaleFactor;
-                    offsetY *= scaleFactor;
+<!DOCTYPE html>
+<html lang="id">
+<head><meta charset="UTF-8" />
+<title>awakedon</title>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: #909B87;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1400px;
+    font-family: sans-serif;
+    overflow: hidden;
   }
 
-  // --- MENENTUKAN POSISI AKHIR ---
-  
-  // Posisi awal `left` dan `top` pupil. 
-  // Karena CSS sudah mengatur `transform: translateY(-50%)`, kita hanya perlu menggeser pupil dari posisi awal CSS-nya.
-  
-  // Dapatkan posisi awal dari CSS (misalnya 30% atau 70%)
-                    const initialLeftPercent = parseFloat(pupil.style.left || window.getComputedStyle(pupil).left);
+  /* ===== UKURAN "PONSEL" ===== */
+  :root {
+    --w: 220px;   /* lebar depan */
+    --h: 220px;   /* tinggi depan */
+    --d: 30px;    /* ketebalan */
+  }
+  .ui{
+    width: 200px;
+    position: absolute;
+    height: 200px;
+    background-color: #D0FFA8;
+    border-radius: 16px;
+  }
+  .scene {
+    position: relative;
+    width: var(--w);
+    height: var(--h);
+  }
 
-  // Perhitungan pergerakan (Offset relatif terhadap pupil itu sendiri)
-  // Kita hanya ingin pupil bergerak relatif terhadap posisi awal vertikal (50%) dan horizontalnya (30% atau 70%)
-                    const moveX = offsetX;
-                    const moveY = offsetY;
+  .phone {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+  }
+
+  .face {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    border-radius: 0px;
+    backface-visibility: hidden;
+  }
+
+  /* DEPAN & BELAKANG */
+  .front, .back {
+    width: var(--w);
+    height: var(--h);
+  }
+
+  .front {
+    background: #457E3B;
+    transform: translateZ(calc(var(--d) / 2));
+  }
+
+  .back {
+    background: #419ABE;
+    transform: rotateY(180deg) translateZ(calc(var(--d) / 2));
+  }
+
+  /* KIRI & KANAN (lebih tipis) */
+  .left, .right {
+    width: var(--d);
+    height: var(--h);
+  }
+
+  .right {
+    background: #9C7935;
+    transform: rotateY(90deg) translateZ(calc(var(--w) - var(--d) / 2));
+  }
+  .power{
+    transform: translateY(-100%);
+    background-color: transparent;
+  }
   
-  // Terapkan posisi baru
-  // Untuk `left`: Ubah persentase awal menjadi koordinat piksel, tambahkan pergerakan, lalu kembalikan ke piksel.
-  // Dalam kasus ini, lebih mudah jika kita menggunakan `transform: translate()` untuk pergerakannya:
-  
-  // Mengatur pergerakan menggunakan transform
-  // Ini lebih efisien dan tidak mengganggu properti `left` dan `top` yang sudah diatur di CSS.
-                    pupil.style.transform = `translate(${moveX}px, ${moveY - ukuranpupil / 2}px)`; 
-  // Catatan: dikurangi pupilSize / 2 karena pupil.style.top: 50% sudah termasuk translate(-50%) di CSS.
-  // Lebih sederhana:
-                    pupil.style.transform = `translate(${moveX}px, -50%) translateY(${moveY}px)`;
+  .left {
+    background: #9C7935;
+    transform: rotateY(-90deg) translateZ(calc(var(--d) / 2));
+  }
+
+  /* ATAS & BAWAH (lebih pendek) */
+  .top, .bottom {
+    width: var(--w);
+    height: var(--d);
+  }
+
+  .top {
+    background: #8C6B9C;
+    transform: rotateX(90deg) translateZ(calc(var(--d) / 2));
+  }
+
+  .bottom {
+    background: #8C6B9C;
+    transform: rotateX(-90deg) translateZ(calc(var(--h) - var(--d) / 2));
+  }
+  .hidden{
+    visibility: hidden;
+  }
+  /* ===== TOMBOL KONTROL ===== */
+  .controls {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .btn {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+    user-select: none;
+    touch-action: manipulation;
+  }
+
+  .btn:active {
+    background: rgba(255,255,255,0.35);
+  }
+  .sprite{
+    image-rendering: pixelated;
+    touch-action: none;
+    user-select: none;
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 128px;
+    height: 128px;
+    background-image: url("mcdiam.png");
+    background-size:512px 512px;
+    background-position: 0 0;
+  }
+  .up    { top: -70px; left: 50%; transform: translateX(-50%); }
+  .down  { bottom: -70px; left: 50%; transform: translateX(-50%); }
+  .leftb { left: -70px; top: 50%; transform: translateY(-50%); }
+  .rightb{ right: -70px; top: 50%; transform: translateY(-50%); }
+
+#toast {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #323232;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 24px;
+  opacity: 0;
+  transition: opacity .3s;
+  z-index: 999999;
+}
+#toast.show {
+  opacity: 1;
+}
+img {
+  width: 200px;
+  height: 200px;
+  z-index: -10;
+  position: absolute;
+}
+</style>
+</head>
+
+<body>
+<div id="toast"></div>
+<div class="scene">
+  <div class="phone" id="phone">
+    <div class="face front"><img src="logo.png"><div class="ui" id="ui"><div id="sprite" class="sprite"></div></div></div>
+    <div class="face back">BELAKANG</div>
+    <div class="face left">KIRI</div>
+    <div class="face right"><button class="power" onclick="power()">🔴</button></div>
+    <div class="face top">ATAS</div>
+    <div class="face bottom">BAWAH</div>
+  </div>
+
+  <div class="controls">
+    <div class="btn up"    data-dir="up">▲</div>
+    <div class="btn down"  data-dir="down">▼</div>
+    <div class="btn leftb" data-dir="left">◀</div>
+    <div class="btn rightb"data-dir="right">▶</div>
+  </div>
+</div>
+
+<script>
+  let layarMati = false;
+  function power(){
+    layarMati = !layarMati;
+    document.getElementById("ui").classList.toggle("hidden",layarMati);
+    const t = document.getElementById("toast");
+    t.textContent = layarMati ? "Layar Mati" : "Layar Hidup";
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 2000);
+  }
+  const phone = document.getElementById("phone");
+  let rotX = 0;
+  let rotY = 0;
+  let locked = false;
+
+  function roll(dir) {
+    if (locked) return;
+    locked = true;
+
+    if (dir === "right") rotY -= 90;
+    if (dir === "left")  rotY += 90;
+    if (dir === "up")    rotX += 90;
+    if (dir === "down")  rotX -= 90;
+
+    phone.style.transform =
+      `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+
+    setTimeout(() => locked = false, 600);
+  }
+
+  document.querySelectorAll(".btn").forEach(btn => {
+    btn.addEventListener("pointerdown", () => {
+      roll(btn.dataset.dir);
+    });
+  });
+</script>
+<script>
+const sprite = document.getElementById("sprite");
+const frameSize = 128;
+const columns = 4;
+let interval = null;
+
+function showFrame(frame) {
+  const x = (frame % columns) * frameSize;
+  const y = Math.floor(frame / columns) * frameSize;
+  sprite.style.backgroundPosition = `-${x}px -${y}px`;
 }
 
-        </script>
-    </body>
+function playOnce(frames, speed = 150, onComplete) {
+  clearInterval(interval);
+  let i = 0;
+
+  interval = setInterval(() => {
+    showFrame(frames[i]);
+    i++;
+    if (i >= frames.length) {
+      clearInterval(interval);
+      if (onComplete) onComplete();
+    }
+  }, speed);
+}
+
+const idleAnimations = [
+  [0, 2],
+  [0, 2]
+];
+
+let idleIndex = 0;
+let isIdle = false;
+
+function startIdle() {
+  if (isIdle) return;
+  isIdle = true;
+
+  function loopIdle() {
+    if (!isIdle) return;
+
+    playOnce(idleAnimations[idleIndex], 350, () => {
+      idleIndex = (idleIndex + 1) % idleAnimations.length;
+      loopIdle();
+    });
+  }
+  loopIdle();
+}
+
+function stopIdle() {
+  isIdle = false;
+  clearInterval(interval);
+}
+
+const karakter = document.getElementById("sprite");
+
+karakter.addEventListener("click", () => {
+  stopIdle();
+  playOnce([2, 7, 9, 7, 2], 150, () => {
+    startIdle();
+  });
+});
+
+startIdle();
+
+</script>
+</body>
 </html>
