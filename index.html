@@ -1,0 +1,157 @@
+<html>
+    <head>
+        <title>Ahmad Solikhin</title>
+        <style>
+            body{
+                margin: 0;
+                padding: 0;
+            }
+            header{
+                height: 20vh;
+                background-color: darksalmon;
+            }
+            main{
+                height: 60vh;
+                background-color: blanchedalmond;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .badan{
+                width: 120px;
+                height: 120px;
+                border-radius: 30%;
+                background-color: lightsalmon;
+                display: flex;
+                flex-direction: column;
+            }
+            .mata{
+                width: 70%;
+                height: 40%;
+                display: flex;
+                flex-direction: row;
+                transform: translate(20px, 30px);
+                position: relative;
+                overflow: hidden;
+            }
+            .mata1{
+                background-color: black;
+                width: 35%;
+                height: 130%;
+                margin-right: 20px;
+                border-radius: 100%;
+            }
+            .mata2{
+                background-color: black;
+                width: 35%;
+                height: 130%;
+                border-radius: 100%;
+            }
+            .mulut{
+                width: 70%;
+                height: 40%;
+                margin: 60px 20px 10px 8px;
+                border: 10px solid white;
+                border-top: none;
+                border-radius: 0px 0px 100px 100px;
+                transition: all 1s ease-in-out;
+            }
+            .mulut:hover{
+                width: 70%;
+                height: 40%;
+                margin: 60px 20px 10px 8px;
+                border-top: none;
+                background-color: white;
+                border: 10px solid white;
+                border-radius: 0px 0px 100px 100px;
+            }
+            footer{
+                height: 20vh;
+                background-color: darksalmon;
+            }
+
+        </style>
+    </head>
+    <body>
+        <header></header>
+        <main>
+            <div class="badan">
+                <div class="mata" id="mata"><div class="mata1" id="mata1"></div><div class="mata2" id="mata2"></div></div>
+                <div class="mulut"></div>
+            </div>
+        </main>
+        <footer></footer>
+        <script>
+            let mata1 = document.getElementById("mata1");
+            let mata2 = document.getElementById("mata2");
+            let mata = document.getElementById("mata");
+            let pupil = [mata1, mata2];
+
+            mata.addEventListener("mousemove", (event) =>{
+                let relatifx = event.offsetX;
+                let relatify = event.offsetY;
+                pupil.forEach(pupil => {
+                    gerak(pupil, relatifx, relatify);
+                });
+            });
+            function gerak(pupil,kursorx, kursory){
+                let ukuranpupil = pupil.offsetWidth;
+                let lebarmata = mata.offsetWidth;
+                let tinggimata = mata.offsetHeight;
+
+                const maxMovementX = (lebarmata / 2) - (ukuranpupil / 2);
+                const maxMovementY = (tinggimata / 2) - (ukuranpupil / 2);
+                // Posisi tengah objek induk
+                const centerX = lebarmata / 2;
+                const centerY = tinggimata / 2;
+
+  // Jarak kursor dari pusat induk
+                let offsetX = kursorx - centerX;
+                let offsetY = kursory - centerY;
+
+  // --- PEMBATASAN (CLAMPING) ---
+  // Pastikan pupil tetap berada di dalam area pergerakan yang diperbolehkan
+  
+  // 3. Hitung Jarak Euclidean (Pythagoras) dari Pusat
+                const distance = Math.sqrt(offsetX * offsetX + offsetY * offsetY);
+
+  // 4. Batasi pergerakan agar tidak melewati batas lingkaran
+  // Kita ingin bola mata (pupil) hanya bergerak sejauh 50% dari radius kontainer mata (eye)
+  // Anda bisa mengatur nilai ini untuk memvariasikan seberapa besar pergerakannya
+                const radiusMovement = maxMovementY * 0.5; // Batasi pergerakan hingga 50% radius Y
+
+                if (distance > radiusMovement) {
+    // Jika kursor terlalu jauh, skala kembali posisi pupil ke batas radiusMovement
+                    const scaleFactor = radiusMovement / distance;
+                    offsetX *= scaleFactor;
+                    offsetY *= scaleFactor;
+  }
+
+  // --- MENENTUKAN POSISI AKHIR ---
+  
+  // Posisi awal `left` dan `top` pupil. 
+  // Karena CSS sudah mengatur `transform: translateY(-50%)`, kita hanya perlu menggeser pupil dari posisi awal CSS-nya.
+  
+  // Dapatkan posisi awal dari CSS (misalnya 30% atau 70%)
+                    const initialLeftPercent = parseFloat(pupil.style.left || window.getComputedStyle(pupil).left);
+
+  // Perhitungan pergerakan (Offset relatif terhadap pupil itu sendiri)
+  // Kita hanya ingin pupil bergerak relatif terhadap posisi awal vertikal (50%) dan horizontalnya (30% atau 70%)
+                    const moveX = offsetX;
+                    const moveY = offsetY;
+  
+  // Terapkan posisi baru
+  // Untuk `left`: Ubah persentase awal menjadi koordinat piksel, tambahkan pergerakan, lalu kembalikan ke piksel.
+  // Dalam kasus ini, lebih mudah jika kita menggunakan `transform: translate()` untuk pergerakannya:
+  
+  // Mengatur pergerakan menggunakan transform
+  // Ini lebih efisien dan tidak mengganggu properti `left` dan `top` yang sudah diatur di CSS.
+                    pupil.style.transform = `translate(${moveX}px, ${moveY - ukuranpupil / 2}px)`; 
+  // Catatan: dikurangi pupilSize / 2 karena pupil.style.top: 50% sudah termasuk translate(-50%) di CSS.
+  // Lebih sederhana:
+                    pupil.style.transform = `translate(${moveX}px, -50%) translateY(${moveY}px)`;
+}
+
+        </script>
+    </body>
+</html>
