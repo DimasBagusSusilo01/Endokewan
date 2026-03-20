@@ -1,306 +1,47 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="id">
-<head><meta charset="UTF-8" />
-<title>awakedon</title>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENDOKEWAN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-<style>
-  body {
-    margin: 0;
-    height: 100vh;
-    background: #909B87;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    perspective: 1400px;
-    font-family: sans-serif;
-    overflow: hidden;
-  }
-
-  /* ===== UKURAN "PONSEL" ===== */
-  :root {
-    --w: 220px;   /* lebar depan */
-    --h: 220px;   /* tinggi depan */
-    --d: 30px;    /* ketebalan */
-  }
-  .ui{
-    width: 200px;
-    position: absolute;
-    height: 200px;
-    background-color: #D0FFA8;
-    border-radius: 16px;
-  }
-  .scene {
-    position: relative;
-    width: var(--w);
-    height: var(--h);
-  }
-
-  .phone {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    transform-style: preserve-3d;
-    transition: transform 0.6s ease;
-  }
-
-  .face {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-weight: bold;
-    border-radius: 0px;
-    backface-visibility: hidden;
-  }
-
-  /* DEPAN & BELAKANG */
-  .front, .back {
-    width: var(--w);
-    height: var(--h);
-  }
-
-  .front {
-    background: #457E3B;
-    transform: translateZ(calc(var(--d) / 2));
-  }
-
-  .back {
-    background: #419ABE;
-    transform: rotateY(180deg) translateZ(calc(var(--d) / 2));
-  }
-
-  /* KIRI & KANAN (lebih tipis) */
-  .left, .right {
-    width: var(--d);
-    height: var(--h);
-  }
-
-  .right {
-    background: #9C7935;
-    transform: rotateY(90deg) translateZ(calc(var(--w) - var(--d) / 2));
-  }
-  .power{
-    transform: translateY(-100%);
-    background-color: transparent;
-  }
-  
-  .left {
-    background: #9C7935;
-    transform: rotateY(-90deg) translateZ(calc(var(--d) / 2));
-  }
-
-  /* ATAS & BAWAH (lebih pendek) */
-  .top, .bottom {
-    width: var(--w);
-    height: var(--d);
-  }
-
-  .top {
-    background: #8C6B9C;
-    transform: rotateX(90deg) translateZ(calc(var(--d) / 2));
-  }
-
-  .bottom {
-    background: #8C6B9C;
-    transform: rotateX(-90deg) translateZ(calc(var(--h) - var(--d) / 2));
-  }
-  .hidden{
-    visibility: hidden;
-  }
-  /* ===== TOMBOL KONTROL ===== */
-  .controls {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .btn {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.15);
-    color: white;
-    font-size: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    pointer-events: auto;
-    user-select: none;
-    touch-action: manipulation;
-  }
-
-  .btn:active {
-    background: rgba(255,255,255,0.35);
-  }
-  .sprite{
-    image-rendering: pixelated;
-    touch-action: none;
-    user-select: none;
-    position: absolute;
-    top: 20%;
-    left: 20%;
-    width: 128px;
-    height: 128px;
-    background-image: url("mcdiam.png");
-    background-size:512px 512px;
-    background-position: 0 0;
-  }
-  .up    { top: -70px; left: 50%; transform: translateX(-50%); }
-  .down  { bottom: -70px; left: 50%; transform: translateX(-50%); }
-  .leftb { left: -70px; top: 50%; transform: translateY(-50%); }
-  .rightb{ right: -70px; top: 50%; transform: translateY(-50%); }
-
-#toast {
-  position: fixed;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #323232;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 24px;
-  opacity: 0;
-  transition: opacity .3s;
-  z-index: 999999;
-}
-#toast.show {
-  opacity: 1;
-}
-img {
-  width: 200px;
-  height: 200px;
-  z-index: -10;
-  position: absolute;
-}
-</style>
-</head>
-
-<body>
-<div id="toast"></div>
-<div class="scene">
-  <div class="phone" id="phone">
-    <div class="face front"><img src="logo.png"><div class="ui" id="ui"><div id="sprite" class="sprite"></div></div></div>
-    <div class="face back">BELAKANG</div>
-    <div class="face left">KIRI</div>
-    <div class="face right"><button class="power" onclick="power()">🔴</button></div>
-    <div class="face top">ATAS</div>
-    <div class="face bottom">BAWAH</div>
-  </div>
-
-  <div class="controls">
-    <div class="btn up"    data-dir="up">▲</div>
-    <div class="btn down"  data-dir="down">▼</div>
-    <div class="btn leftb" data-dir="left">◀</div>
-    <div class="btn rightb"data-dir="right">▶</div>
-  </div>
-</div>
-
-<script>
-  let layarMati = false;
-  function power(){
-    layarMati = !layarMati;
-    document.getElementById("ui").classList.toggle("hidden",layarMati);
-    const t = document.getElementById("toast");
-    t.textContent = layarMati ? "Layar Mati" : "Layar Hidup";
-    t.classList.add("show");
-    setTimeout(() => t.classList.remove("show"), 2000);
-  }
-  const phone = document.getElementById("phone");
-  let rotX = 0;
-  let rotY = 0;
-  let locked = false;
-
-  function roll(dir) {
-    if (locked) return;
-    locked = true;
-
-    if (dir === "right") rotY -= 90;
-    if (dir === "left")  rotY += 90;
-    if (dir === "up")    rotX += 90;
-    if (dir === "down")  rotX -= 90;
-
-    phone.style.transform =
-      `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-
-    setTimeout(() => locked = false, 600);
-  }
-
-  document.querySelectorAll(".btn").forEach(btn => {
-    btn.addEventListener("pointerdown", () => {
-      roll(btn.dataset.dir);
-    });
-  });
-</script>
-<script>
-const sprite = document.getElementById("sprite");
-const frameSize = 128;
-const columns = 4;
-let interval = null;
-
-function showFrame(frame) {
-  const x = (frame % columns) * frameSize;
-  const y = Math.floor(frame / columns) * frameSize;
-  sprite.style.backgroundPosition = `-${x}px -${y}px`;
-}
-
-function playOnce(frames, speed = 150, onComplete) {
-  clearInterval(interval);
-  let i = 0;
-
-  interval = setInterval(() => {
-    showFrame(frames[i]);
-    i++;
-    if (i >= frames.length) {
-      clearInterval(interval);
-      if (onComplete) onComplete();
-    }
-  }, speed);
-}
-
-const idleAnimations = [
-  [0, 2],
-  [0, 2]
-];
-
-let idleIndex = 0;
-let isIdle = false;
-
-function startIdle() {
-  if (isIdle) return;
-  isIdle = true;
-
-  function loopIdle() {
-    if (!isIdle) return;
-
-    playOnce(idleAnimations[idleIndex], 350, () => {
-      idleIndex = (idleIndex + 1) % idleAnimations.length;
-      loopIdle();
-    });
-  }
-  loopIdle();
-}
-
-function stopIdle() {
-  isIdle = false;
-  clearInterval(interval);
-}
-
-const karakter = document.getElementById("sprite");
-
-karakter.addEventListener("click", () => {
-  stopIdle();
-  playOnce([2, 7, 9, 7, 2], 150, () => {
-    startIdle();
-  });
-});
-
-startIdle();
-
-</script>
-</body>
-</html>
+<link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styleindex.css">
+  </head>
+  <body>
+    <div id="toast"></div>
+  <div class="kamera"><div class="semua" id="bungkus">
+    <div class="panelkiri">
+      <div class="kertas"><p id="teks" color="black" align="center"></p></div>
+      </div>
+    <div class="tengah">
+      <div class="bungkus">
+      <div class="hp" id="hp">
+        <div class="wajah depan"><img src="logo.png"><div class="ui" id="ui"><div class="sprite" id="sprite"></div></div></div>
+        <div class="wajah belakang"></div>
+        <div class="wajah atas"></div>
+        <div class="wajah bawah"></div>
+        <div class="wajah kiri"></div>
+        <div class="wajah kanan"><button class="power" onclick="power()">🔴</button></div>
+      </div>
+      <div class="controller">
+        <div class="btn up"    data-dir="up">▲</div>
+        <div class="btn down"  data-dir="down">▼</div>
+        <div class="btn leftb" data-dir="left">◀</div>
+        <div class="btn rightb"data-dir="right">▶</div>
+      </div></div></div>
+      <div class="panelkanan">
+        
+      </div>
+      </div></div>
+    <footer id="navigasi">
+      <div class="peluncur"></div>
+        <button class="tombol" data-index="0" onclick="gulir(this)"><div class="ikon"></div></button>
+        <button class="tombol aktif" data-index="1" onclick="gulir(this)"><div class="ikon"></div></button>
+        <button class="tombol" data-index="2" onclick="gulir(this)"><div class="ikon"></div></button>
+    </footer>
+    <script src="scriptindex.js"></script>
+    <script src="gulirfooter.js"></script>
+  </body>
+</html>    
