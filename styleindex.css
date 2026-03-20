@@ -1,0 +1,328 @@
+body{
+  height: 100vh;
+    background: #000000;
+    
+    overflow-x: hidden;
+    font-family: sans-serif;}
+.kamera {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+.semua {
+  display: flex;
+  width: 300vw; /* Lebar 2 layar */
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+  /* Mulai dengan posisi layar utama (geser ke kiri sebanyak lebar layar tambahan) */
+  transform: translateX(-100vw);
+}
+.semua.left-slide {
+  transform: translateX(0vw);
+}
+
+.semua.center-slide {
+  transform: translateX(-100vw);
+}
+
+.semua.right-slide {
+  transform: translateX(-200vw);
+}
+
+.panelkiri, .tengah, .panelkanan{  
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+}
+footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #000000;
+  display: flex;
+  padding-bottom: 10px;
+  border: 5px solid gray;
+  border-radius: 10%
+  ;
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;}
+.tombol{
+  width: 65px;
+  height: 60px;
+  border: none;
+  outline: none;
+  background: transparent;
+  display: flex;
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  transition: 0.8s;
+}
+.ikon{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  transition: 0.5s;
+}
+.tombol.aktif{
+  background-color: #000000;
+  border: 5px solid gray;
+  border-top: 5px solid transparent;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  position: relative;
+  margin-top: -10px;
+}
+
+.tombol.aktif .ikon{
+  background-color: black;
+  transform: translateY(-20px);
+  border: 1px solid white;
+}
+.peluncur::before{
+content: "";
+position: absolute;
+background-color: transparent;
+width: 50%;
+height: 20px;
+top: 0px;
+left: -30px;
+border-top-right-radius: 30px;
+box-shadow: 7px -5px 0 0 gray;
+}
+.peluncur::after{
+content: "";
+position: absolute;
+background-color: transparent;
+width: 50%;
+height: 20px;
+top: 0px;
+right: -20px;
+border-top-left-radius: 30px;
+box-shadow: -7px -5px 0 0 gray;
+}
+.peluncur{
+  position: absolute;
+  z-index: 1;
+  width: 60px;
+  height: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #000000;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  transition: 0.5s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+:root{
+  --w:200px;
+  --h:200px;
+  --d:30px;
+}
+ .tengah {
+   position: relative;
+    display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+
+  .hp {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    transform-style: preserve-3d;
+    /*transform-origin: */
+    transition: transform 0.6s ease;
+    display: flex;
+   justify-content: center;
+   align-items: center;
+    }
+
+  .wajah {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    border-radius: 0px;
+    backface-visibility: hidden;
+  }
+
+  /* DEPAN & BELAKANG */
+  .depan, .belakang {
+    width: var(--w);
+    height: var(--h);
+  }
+
+  .depan {
+    background: #457E3B;
+    transform: translateZ(calc(var(--d) / 2));
+  }
+
+  .belakang {
+    background: #419ABE;
+    transform: rotateY(180deg) translateZ(calc(var(--d) / 2));
+  }
+
+  /* KIRI & KANAN (lebih tipis) */
+  .kiri, .kanan {
+    width: var(--d);
+    height: var(--h);
+  }
+
+  .kanan {
+    background: #9C7935;
+    transform: rotateY(90deg) translateZ(calc(var(--w) / 2));
+  }
+  .kiri {
+    background: #9C7935;
+    transform: rotateY(-90deg) translateZ(calc(var(--w) / 2));
+  }
+
+  .atas, .bawah {
+    width: var(--w);
+    height: var(--d);
+  }
+
+  .atas {
+    background: #8C6B9C;
+    transform: rotateX(90deg) translateZ(calc(var(--h) / 2));
+  }
+
+  .bawah {
+    background: #8C6B9C;
+    transform: rotateX(-90deg) translateZ(calc(var(--h)  / 2));
+  }
+  .hidden{
+    visibility: hidden;
+  }
+  /* ===== TOMBOL KONTROL ===== */
+  .controller{
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .bungkus{
+    position: relative;
+    display: inline-block;
+    perspective: 1400px;
+  }
+  .btn {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+    user-select: none;
+    touch-action: manipulation;
+  }
+
+  .btn:active {
+    background: rgba(255,255,255,0.35);
+  }
+.up {
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.down {
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.leftb {
+  left: -60px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.rightb {
+  right: -60px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+  .sprite{
+    image-rendering: pixelated;
+    touch-action: none;
+    user-select: none;
+    width: 128px;
+    height: 128px;
+    background-image: url("mcdiam.png");
+    background-size:512px 512px;
+    background-position: 0 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+  img{
+    width: 180px;
+    height: 180px;
+    z-index: -10;
+    position: absolute;
+  }
+  .ui{
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    background-color: #D0FFA8;
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .power{
+    background-color: transparent;
+  }
+  #toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: pink;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 24px;
+  opacity: 0;
+  transition: opacity .3s;
+  z-index: 999999;
+}
+#toast.show {
+  opacity: 1;
+}
+.panelkiri{
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ .kertas{
+   width: 70vw; height: 70vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: white;
+   mask: repeating-conic-gradient(from 162.5deg at 50% 30px,#0000 0,#000 1deg 34deg,#0000 35deg 180deg) 50% -30px/18.92px
+ }
+.panelkanan{
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+}
+
+.garis{
+  width: 50vw;
+  height: 1px;
+  background-color: black;
+}
