@@ -116,7 +116,7 @@ function bagiTeks(teks, panjang ) {
       teks = teks.slice(panjang + 1);
     }
 
-    hasil += potong + "<br>";
+    hasil += potong + "<br><div class='garis'></div>";
   }
   return hasil;
 }
