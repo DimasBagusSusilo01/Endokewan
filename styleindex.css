@@ -332,3 +332,30 @@ box-shadow: -7px -5px 0 0 gray;
   font-family: "Shadows Into Light";
   font-weight: bold;
 }
+#gbot{
+  width: 300px;
+  height: 300px;
+  position: relative;
+}
+.mata{
+  position: absolute;
+  z-index: 20;
+}
+.mata1, .mata2{
+  width: 20px;
+  height: 60px;
+  border-radius: 100%;
+  border: 2px solid white;
+  background-color: transparent;
+  position: absolute;
+  bottom: -30px;
+  
+}
+.mata1{
+  right: -60px;
+  z-index: 21;
+}
+.mata2{
+  left: -60px;
+  z-index: 29;
+}
