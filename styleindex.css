@@ -1,20 +1,18 @@
 html, body{
-  height: 100vh;
-  background: #000000;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  font-family: sans-serif;}
+    height: 100vh;
+    background: #000000;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-family: sans-serif;}
 .kamera {
   width: 100vw;
-  height: 100vh;
   position: relative;
 }
 .semua {
   display: flex;
   width: 300vw; /* Lebar 2 layar */
-  height: 100%;
   transition: transform 0.5s ease-in-out;
   /* Mulai dengan posisi layar utama (geser ke kiri sebanyak lebar layar tambahan) */
   transform: translateX(-100vw);
@@ -266,7 +264,7 @@ box-shadow: -7px -5px 0 0 gray;
     justify-content: center;
     align-content: center;
   }
-  img{
+  .wajah.depan img{
     width: 180px;
     height: 180px;
     z-index: -10;
@@ -315,13 +313,17 @@ box-shadow: -7px -5px 0 0 gray;
    align-items: center;
    justify-content: center;
    background-color: white;
-   mask: repeating-conic-gradient(from 162.5deg at 50% 30px,#0000 0,#000 1deg 34deg,#0000 35deg 180deg) 50% -30px/18.92px
+   mask: repeating-conic-gradient(from 162.5deg at 50% 30px,#0000 0,#000 1deg 34deg,#0000 35deg 180deg) 50% -30px/18.92px;
  }
-.panelkanan{
+.panelkanan {
   width: 100vw;
   height: 100vh;
   background-color: black;
+  display: flex; /* Tambahkan ini */
+  justify-content: center; /* Tambahkan ini */
+  align-items: center; /* Tambahkan ini */
 }
+
 
 .garis{
   width: 50vw;
