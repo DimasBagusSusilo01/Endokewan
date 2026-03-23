@@ -12,9 +12,8 @@ html, body{
 }
 .semua {
   display: flex;
-  width: 300vw; /* Lebar 2 layar */
+  width: 300vw; 
   transition: transform 0.5s ease-in-out;
-  /* Mulai dengan posisi layar utama (geser ke kiri sebanyak lebar layar tambahan) */
   transform: translateX(-100vw);
 }
 .semua.left-slide {
@@ -360,4 +359,9 @@ box-shadow: -7px -5px 0 0 gray;
 .mata2{
   left: -60px;
   z-index: 29;
+}
+.output{
+  font-family: 'Courier New',Courier,Monospace;
+  font-size: 15px;
+  color: white;
 }
