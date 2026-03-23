@@ -186,3 +186,15 @@ paragraf = document.getElementById("teks");
 paragraf.innerHTML = bagiTeks(teks, 10);
 paragraf.style.fontSize = "20px";
 
+let output = "Hi! aku Gbot! Asistenmu dalam memahami Endokewan. ada yang bisa aku bantu?";
+async function ketikTeks(teks, elemenId) {
+  const el = document.getElementById(elemenId);
+  el.textContent = "";
+
+  for (let i = 0; i < teks.length; i++) {
+    el.textContent += teks[i];
+    await sleep(50); 
+  }
+}
+
+ketikTeks(output,'output');
