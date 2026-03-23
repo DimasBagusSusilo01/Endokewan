@@ -182,7 +182,7 @@ function bagiTeks(teks, panjang ) {
   return hasil;
 }
 let teks = "Hi semua! Namaku adalah Endokewan! Nama kalian siapa? Aku mohon untuk merawat diriku ya? Aku akan membuatmu nyaman dan suka dengan keimutanku!";
-paragraf = document.getElementById("teks");
+let paragraf = document.getElementById("teks");
 paragraf.innerHTML = bagiTeks(teks, 10);
 paragraf.style.fontSize = "20px";
 
@@ -193,8 +193,9 @@ export async function ketikTeks(teks, elemenId) {
 
   for (let i = 0; i < teks.length; i++) {
     el.textContent += teks[i];
-    await sleep(50); 
+    await sleep(50); // kecepatan ketik
   }
 }
 
+// panggil
 ketikTeks(output,'output');
