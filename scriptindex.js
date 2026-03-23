@@ -1,3 +1,38 @@
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function ubahMata(randomAngka){
+  const mata1 = document.getElementById("mata1");
+  const mata2 = document.getElementById("mata2");
+
+  if (randomAngka == 3 || randomAngka == 6 || randomAngka == 9){
+    mata1.style.height = "10px";
+    mata2.style.height = "10px";
+
+    await sleep(200);
+
+    mata1.style.height = "60px";
+    mata2.style.height = "60px";
+  }
+}
+
+async function startRandomLoop() {
+  let min = 0;
+  let max = 10;
+
+  let randomAngka = Math.floor(Math.random() * (max - min)) + min; 
+  let randomDelay = Math.floor(Math.random() * 2) + 1;
+  console.log(randomDelay);
+
+  ubahMata(randomAngka);
+
+  await sleep(1000);
+  setTimeout(startRandomLoop, randomDelay);
+}
+
+startRandomLoop();
+
 const hp = document.getElementById("hp");
   let rotX = 0;
   let rotY = 0;
@@ -21,6 +56,32 @@ const hp = document.getElementById("hp");
   document.querySelectorAll(".btn").forEach(btn => {
     btn.addEventListener("pointerdown", () => {
       roll(btn.dataset.dir);
+    });
+  });
+  
+const hp2 = document.getElementById("hp2");
+  let rot2X = 0;
+  let rot2Y = 0;
+  let locked2 = false;
+
+  function roll2(dir) {
+    if (locked2) return;
+    locked2 = true;
+
+    if (dir === "right") rot2Y -= 90;
+    if (dir === "left")  rot2Y += 90;
+    if (dir === "up")    rot2X += 90;
+    if (dir === "down")  rot2X -= 90;
+
+    hp2.style.transform =
+      `rotateX(${rot2X}deg) rotateY(${rot2Y}deg)`;
+
+    setTimeout(() => locked2 = false, 600);
+  }
+
+  document.querySelectorAll(".btn2").forEach(btn => {
+    btn.addEventListener("pointerdown", () => {
+      roll2(btn.dataset.dir);
     });
   });
   
@@ -124,3 +185,4 @@ let teks = "Hi semua! Namaku adalah Endokewan! Nama kalian siapa? Aku mohon untu
 paragraf = document.getElementById("teks");
 paragraf.innerHTML = bagiTeks(teks, 10);
 paragraf.style.fontSize = "20px";
+
