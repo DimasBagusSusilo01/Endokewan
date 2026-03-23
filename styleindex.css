@@ -12,8 +12,9 @@ html, body{
 }
 .semua {
   display: flex;
-  width: 300vw; 
+  width: 300vw; /* Lebar 2 layar */
   transition: transform 0.5s ease-in-out;
+  /* Mulai dengan posisi layar utama (geser ke kiri sebanyak lebar layar tambahan) */
   transform: translateX(-100vw);
 }
 .semua.left-slide {
@@ -318,9 +319,9 @@ box-shadow: -7px -5px 0 0 gray;
   width: 100vw;
   height: 100vh;
   background-color: black;
-  display: flex; /* Tambahkan ini */
-  justify-content: center; /* Tambahkan ini */
-  align-items: center; /* Tambahkan ini */
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
 }
 
 
@@ -361,7 +362,26 @@ box-shadow: -7px -5px 0 0 gray;
   z-index: 29;
 }
 .output{
-  font-family: 'Courier New',Courier,Monospace;
+  font-family: 'Courier New', Courier, Monospace;
   font-size: 15px;
   color: white;
+}
+.inputbot{
+  width: 100px;
+  height: 80px;
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+}
+#kirim{
+  background: transparent;
+  border: 1px solid white;
+}
+.material-symbols-outlined {
+  color: white;
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' -25,
+  'opsz' 24
 }
