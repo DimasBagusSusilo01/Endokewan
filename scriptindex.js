@@ -187,7 +187,7 @@ paragraf.innerHTML = bagiTeks(teks, 10);
 paragraf.style.fontSize = "20px";
 
 let output = "Hi! aku Gbot! Asistenmu dalam memahami Endokewan. ada yang bisa aku bantu?";
-async function ketikTeks(teks, elemenId) {
+export async function ketikTeks(teks, elemenId) {
   const el = document.getElementById(elemenId);
   el.textContent = "";
 
