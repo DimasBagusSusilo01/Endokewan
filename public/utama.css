@@ -7,7 +7,16 @@ body{
     justify-content: center;
     transform: translateY(50vh) translateY(-50%);
 }
-.kotakIsi{
+.login{
+    display: flex;
+    justify-content: center;
+    transform: translateY(100vh);
+    transition: 2s ease-out;
+}
+.login.aktif{
+    transform: translateY(-10vh);
+}
+.kotakIsi, .kotakLogin{
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -29,4 +38,16 @@ body{
 #judul{
     padding-top: 10%;
     font-size: 28px;
+}
+#Login:hover,#tentang:hover{
+background-color: black;
+color:beige;
+}
+.daftarGoogle{
+    transform: translateY(50%);
+    background-color: transparent;
+    border: 3px solid black;
+    font-family: 'Share Tech Mono';
+    font-size: 28px;
+    color: chartreuse;
 }
