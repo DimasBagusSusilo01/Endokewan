@@ -32,21 +32,23 @@ body{
     transition: 2s ease-out;
 }
 .login.aktif{
-    transform: translateY(-10vh);
+    transform: translateY(5vh);
 }
 .kotakIsi, .kotakLogin{
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 60vw;
-    height: 60vh;
+    height: 45vh;
     font-family: 'Share Tech Mono';
     border:10px solid black;
     border-radius: 10px;
     background-color: darkgreen;
     box-shadow: 8px 8px 8px 10px rgba(0, 0, 0, 0.5);
 }
-
+.kotakIsi{
+  z-index: 20;
+}
 #judul{
     padding-top: 10%;
     font-size: 28px;
@@ -55,11 +57,99 @@ body{
 background-color: black;
 color:beige;
 }
-.daftarGoogle{
+.daftarGoogle, .kembali{
     transform: translateY(50%);
     background-color: transparent;
     border: 3px solid black;
     font-family: 'Share Tech Mono';
     font-size: 28px;
     color: chartreuse;
+}
+
+.kotakLogin{
+  position:relative;
+}
+.kotakTentang{
+  position: relative;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 22px;
+  pointer-events: none;
+  visibility: hidden;
+}
+.utama{
+  position: absolute;
+  z-index: 49;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.utama.muncul, .kotakTentang.muncul{
+  pointer-events: auto;
+  visibility: visible;
+  animation: glitchIn 0.5s steps(2,end);
+}
+.utama.hilang, .kotakTentang.hilang{
+  pointer-events: none;
+  visibility: hidden;
+  animation: glitchOut 0.5s steps(2,end);
+}
+
+@keyframes glitchOut{
+
+  0%{
+    transform:none;
+    filter:none;
+    opacity:1;
+  }
+
+  20%{
+    transform:translateX(-5px);
+    filter:hue-rotate(90deg);
+  }
+
+  40%{
+    transform:translateX(5px);
+    opacity:0.8;
+  }
+
+  60%{
+    transform:translateY(3px);
+    filter:invert(1);
+  }
+
+  100%{
+    transform:none;
+    opacity:0;
+  }
+}
+
+@keyframes glitchIn{
+
+  0%{
+    transform:translateX(10px);
+    opacity:0;
+    filter:invert(1);
+  }
+
+  20%{
+    transform:translateX(-10px);
+  }
+
+  40%{
+    transform:translateY(5px);
+    opacity:0.5;
+  }
+
+  100%{
+    transform:none;
+    opacity:1;
+    filter:none;
+  }
 }
