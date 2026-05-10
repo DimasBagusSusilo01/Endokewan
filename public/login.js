@@ -6,7 +6,7 @@ const supabase = createClient('https://tlmidazvewettxhlwbvx.supabase.co', 'eyJhb
     persistSession: true,
     detectSessionInUrl: true
   }
-);
+)
 
 const daftar = document.getElementById('daftar');
 daftar.addEventListener('click', async function(){
