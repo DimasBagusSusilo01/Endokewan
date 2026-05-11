@@ -17,6 +17,7 @@ supabase.auth.getSession().then(({ data: { session } }) => {
     // Redirect to login page if no session
     console.log(window.location.href)
     console.log(localStorage)
+    console.log(SUPABASE_URL)
   }
 })
 
