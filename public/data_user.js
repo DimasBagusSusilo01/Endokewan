@@ -7,14 +7,15 @@ const supabase = window.supabase.createClient(
 let currentSession = null;
 
 // pantau auth
-supabase.auth.onAuthStateChange((event, session) => {
-
-  console.log("EVENT:", event);
-  console.log("SESSION:", session);
-
-  currentSession = session;
-
-});
+supabase.auth.getSession().then(({ data: { session } }) => {
+  if (session) {
+    console.log("Logged in:", session.user.email)
+    // User is authorized
+  } else {
+    // Redirect to login page if no session
+    window.location.href = '/index.html'
+  }
+})
 
 // function SELALU ADA
 window.kirimnama = async function () {
