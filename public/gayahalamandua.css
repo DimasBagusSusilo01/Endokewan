@@ -2,6 +2,8 @@ body{
   padding: 0;
   margin: 0;
   background-color: #224018;
+  color: chartreuse;
+  font-family: "Share Tech Mono";
 }
 .kotakluar{
   display: flex;
@@ -9,10 +11,32 @@ body{
   transform: translateY(50vh) translateY(-50%);
 }
 .perangkat{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   width: 60vw;
   height: 45vh;
   background-color: darkgreen;
   border: 10px solid white;
   border-radius: 10px;
   box-shadow: 8px 8px 8px 10px rgba(255, 255, 255, 0.6);
+}
+.nama{
+  background-color: transparent;
+  border-color: transparent;
+}
+#Judul{
+  font-size: 28px;
+}
+#tanya1, #nama{
+  font-size: 22px;
+}
+input{
+  width: 100%;
+  text-align: center;
+}
+input::placeholder{
+  text-align: center;
+  color: chartreuse;
+  font-size: 20px;
 }
