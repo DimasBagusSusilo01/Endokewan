@@ -5,7 +5,9 @@ const supabase = window.supabase.createClient(
 
 // simpan session global
 let currentSession = null;
-
+supabase.auth.exchangeCodeForSession(
+    window.location.href
+  );
 // pantau auth
 supabase.auth.getSession().then(({ data: { session } }) => {
   if (session) {
