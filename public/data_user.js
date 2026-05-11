@@ -2,55 +2,49 @@ const supabase = window.supabase.createClient('https://tlmidazvewettxhlwbvx.supa
 
 let currentSession = null;
 
-// 1. Pantau perubahan auth secara aktif
-supabase.auth.onAuthStateChange((event, session) => {
-  currentSession = session; // Isi variabel global setiap kali status berubah
-  
-  if (session) {
-    console.log("Logged in:", session.user.email);
-  } else {
-    console.log("User logged out atau session habis");
-  }
-});
+async function initAuth() {
 
-// 2. Tangani penukaran kode (jika pakai OAuth)
-async function handleAuth() {
-  if (window.location.hash || window.location.search) {
-    const { error } = await supabase.auth.exchangeCodeForSession(window.location.href);
-    if (error) console.error("Auth error:", error.message);
-  }
-}
-handleAuth();
-
-// 3. Fungsi kirim nama
-window.kirimnama = async function () {
-  // Sekarang currentSession sudah terisi otomatis oleh onAuthStateChange
-  if (!currentSession) {
-    alert("Belum login! Silakan login terlebih dahulu.");
-    return;
-  }
-
-  const nama = document.getElementById("nama").value;
-  if (!nama.trim()) {
-    alert("Nama tidak boleh kosong");
-    return;
-  }
-
-  const { data, error } = await supabase
-    .from("DataPengguna")
-    .upsert({
-      id: currentSession.user.id, // Ambil dari session
-      email: currentSession.user.email,
-      nama: nama,
-      status: "online"
-    })
-    .select()
-    .single();
+  const { data, error } =
+    await supabase.auth.getSession();
 
   if (error) {
-    console.error("Database error:", error);
-    alert(error.message);
-  } else {
-    alert("Berhasil simpan: " + data.nama);
+
+    console.error(error);
+    return;
   }
+  currentSession = data.session;
+  console.log(currentSession);
+}
+initAuth();
+
+supabase.auth.onAuthStateChange(
+  (event, session) => {
+    currentSession = session;
+    console.log(event);
+    console.log(session);
+  }
+);
+
+window.kirimnama = async function () {
+
+  if (!currentSession) {
+    alert("Belum login");
+    return;
+  }
+
+  const nama =
+    document.getElementById("nama").value;
+
+  const { data, error } =
+    await supabase
+      .from("DataPengguna")
+      .upsert({
+        id: currentSession.user.id,
+        email: currentSession.user.email,
+        nama: nama,
+        status: "online"
+      })
+      .select()
+      .single();
+  console.log(data, error);
 };
