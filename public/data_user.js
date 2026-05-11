@@ -13,7 +13,8 @@ supabase.auth.getSession().then(({ data: { session } }) => {
     // User is authorized
   } else {
     // Redirect to login page if no session
-    window.location.href = '/index.html'
+    console.log(window.location.href)
+    console.log(localStorage)
   }
 })
 
