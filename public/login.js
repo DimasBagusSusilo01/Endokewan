@@ -14,7 +14,7 @@ daftar.addEventListener('click', async function(){
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: 'https://firemux-001.web.app/game.html', 
+      redirectTo: 'https://firemux-001.web.app/halaman_dua.html', 
     },
   });
   
