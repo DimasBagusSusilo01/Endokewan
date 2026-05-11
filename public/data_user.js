@@ -14,19 +14,34 @@ window.kirimnama = async function () {
       return;
     }
 
-    const {
-      data: { user }
-    } = await supabase.auth.getUser();
+    // CEK SESSION DULU
+    const sessionResult = await supabase.auth.getSession();
+
+    console.log("SESSION:", sessionResult.data.session);
+
+    if (!sessionResult.data.session) {
+
+      alert("Session tidak ada");
+      return;
+
+    }
+
+    // AMBIL USER
+    const userResult = await supabase.auth.getUser();
+
+    console.log("USER:", userResult.data.user);
+
+    const user = userResult.data.user;
 
     if (!user) {
+
       alert("Belum login");
       return;
+
     }
- const { data, error } = await supabase.auth.getSession();
-console.log("SESSION:", data.session);
-const { data: userData } = await supabase.auth.getUser();
-console.log("USER:", userData.user);
-    const { data, error } = await supabase
+
+    // SIMPAN DATABASE
+    const dbResult = await supabase
       .from('DataPengguna')
       .upsert({
         id: user.id,
@@ -37,14 +52,16 @@ console.log("USER:", userData.user);
       .select()
       .single();
 
-    if (error) {
+    console.log(dbResult);
 
-      console.error("Error:", error.message);
+    if (dbResult.error) {
+
+      console.error(dbResult.error);
       alert("Gagal mengirim data");
 
     } else {
 
-      alert(data.nama);
+      alert(dbResult.data.nama);
 
     }
 
