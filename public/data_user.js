@@ -1,47 +1,54 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 const SUPABASE_URL = 'https://tlmidazvewettxhlwbvx.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRsbWlkYXp2ZXdldHR4aGx3YnZ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzMjkyNjEsImV4cCI6MjA5MzkwNTI2MX0.iAiayUK-H1TppKLSdLDF1ugNzzBZ143Z-qwqGj1CPtM';
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabase = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+async function cekSession() {
+
+  const { data, error } =
+    await supabase.auth.getSession();
+
+  console.log("SESSION:", data.session);
+
+  if (!data.session) {
+
+    alert("Session hilang");
+
+    window.location.href = "index.html";
+
+    return;
+
+  }
+
+  console.log(data.session.user);
+
+}
+
+cekSession();
 
 window.kirimnama = async function () {
 
   try {
 
-    const nama = document.getElementById('nama').value;
+    const nama =
+      document.getElementById('nama').value;
 
     if (!nama.trim()) {
+
       alert("Nama kosong");
       return;
-    }
-
-    // CEK SESSION DULU
-    const sessionResult = await supabase.auth.getSession();
-
-    console.log("SESSION:", sessionResult.data.session);
-
-    if (!sessionResult.data.session) {
-
-      alert("Session tidak ada");
-      return;
 
     }
 
-    // AMBIL USER
-    const userResult = await supabase.auth.getUser();
+    const { data: sessionData } =
+      await supabase.auth.getSession();
 
-    console.log("USER:", userResult.data.user);
+    const user = sessionData.session.user;
 
-    const user = userResult.data.user;
-
-    if (!user) {
-
-      alert("Belum login");
-      return;
-
-    }
-
-    // SIMPAN DATABASE
-    const dbResult = await supabase
+    const { data, error } = await supabase
       .from('DataPengguna')
       .upsert({
         id: user.id,
@@ -52,24 +59,14 @@ window.kirimnama = async function () {
       .select()
       .single();
 
-    console.log(dbResult);
-
-    if (dbResult.error) {
-
-      console.error(dbResult.error);
-      alert("Gagal mengirim data");
-
+    if (error) {
+      console.error(error);
+      alert(error.message);
     } else {
-
-      alert(dbResult.data.nama);
-
+      alert(data.nama);
     }
-
   } catch (err) {
-
     console.error(err);
     alert("Terjadi error");
-
   }
-
 };
