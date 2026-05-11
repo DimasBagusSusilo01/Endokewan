@@ -21,6 +21,9 @@ kirimnama.addEventListener('click', async function(){
       nama: nama,
       status: 'online'
     }).select(nama).eq(id,id).single();
-    
-  window.alert(data.nama);
+  if (error) {
+    console.error("Error:", error.message);
+    alert("Gagal mengirim data");
+  } else{
+  window.alert(data.nama);}
 });
