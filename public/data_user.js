@@ -3,7 +3,9 @@ const supabase = window.supabase.createClient('https://tlmidazvewettxhlwbvx.supa
 let currentSession = null;
 
 async function initAuth() {
-
+  await new Promise(resolve =>
+    setTimeout(resolve, 2000)
+  );
   const { data, error } =
     await supabase.auth.getSession();
 
