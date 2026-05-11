@@ -24,4 +24,4 @@ async function kirimnama(){
     alert("Gagal mengirim data");
   } else{
   window.alert(data.nama);}
-});
+};
