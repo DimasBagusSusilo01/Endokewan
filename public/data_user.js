@@ -1,7 +1,8 @@
-nama = document.getElementById('nama');
-async function cekUser() {
+const nama = document.getElementById('nama').value;
+kirimnama = document.getElementById('kirimnama');
 
-  const {
+kirimnama.addEventListener('click', function(){
+    const {
     data: { user }
   } = await supabase.auth.getUser();
 
@@ -9,13 +10,12 @@ async function cekUser() {
 
   await supabase
     .from('users')
-    .upsert({
+    .insert({
       id: user.id,
       email: user.email,
-      nama: user.user_metadata.full_name,
+      nama: nama,
       status: 'online'
-    });
-
-}
-
-cekUser();
+    }).select(nama).eq(id,id).single();
+    
+  window.alert(data.nama);
+});
