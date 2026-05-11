@@ -14,7 +14,7 @@ kirimnama.addEventListener('click', async function(){
   if (!user) return;
 
   await supabase
-    .from('users')
+    .from('DataPengguna')
     .upsert({
       id: user.id,
       email: user.email,
