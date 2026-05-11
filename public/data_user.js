@@ -22,7 +22,10 @@ window.kirimnama = async function () {
       alert("Belum login");
       return;
     }
-
+ const { data, error } = await supabase.auth.getSession();
+console.log("SESSION:", data.session);
+const { data: userData } = await supabase.auth.getUser();
+console.log("USER:", userData.user);
     const { data, error } = await supabase
       .from('DataPengguna')
       .upsert({
