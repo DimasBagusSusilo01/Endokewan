@@ -4,10 +4,9 @@ body{
   background-color: #224018;
 }
 .kotakluar{
-  position: absolute;
   display: flex;
   justify-content: center;
-  align-items: center;
+  transform: translateY(50vh) translateY(-50%);
 }
 .perangkat{
   width: 60vw;
