@@ -11,9 +11,14 @@ body{
   transform: translateY(50vh) translateY(-50%);
 }
 .perangkat{
+  position: relative;
+}
+.login{
   display: flex;
   align-items: center;
   flex-direction: column;
+  position: relative;
+  z-index: 0;
   width: 60vw;
   height: 45vh;
   background-color: darkgreen;
@@ -39,4 +44,11 @@ input::placeholder{
   text-align: center;
   color: chartreuse;
   font-size: 20px;
+}
+.ui{
+  position: absolute;
+  z-index: 10;
+  top: 10%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
 }
