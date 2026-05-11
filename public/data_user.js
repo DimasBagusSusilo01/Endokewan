@@ -5,7 +5,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const kirimnama = document.getElementById('kirimnama');
 
-kirimnama.addEventListener('click', async function(){
+function kirimnama(){
   const nama = document.getElementById('nama').value;
   const {
     data: { user }
