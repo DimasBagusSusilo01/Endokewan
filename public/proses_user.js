@@ -14,7 +14,39 @@ const supabase =
           }
         }
       );
+let currentSession = null;
+async function initAuth() {
+      await new Promise(resolve =>
+        setTimeout(resolve, 3000)
+      );
       
-const { data, error } =
+      const { data, error } =
+        await supabase.auth.getSession();
+      //console.log("SESSION:", data.session);
+      //console.log("ERROR:", error);
+      //console.log("URL:", window.location.href);
+     // console.log("LOCALSTORAGE:", localStorage);
+      currentSession = data.session;
+      if (!currentSession) {
+        alert("Session tidak ditemukan");
+        return;
+      }
+      console.log(
+        "LOGIN:",
+        currentSession.user.email
+      );
+    }   
+initAuth();
+
+const { data_dalam, error } =
         await supabase
-          .from("DataPengguna")
+          .from("DataPengguna").select('*');
+
+const pemain = document.getElementById('pemain'); 
+const login = document.getElementById('login');
+if data_dalam.email == currentSession.user.email{
+  pemain.textContent = data_dalam.nama;
+}
+else{
+  
+}
