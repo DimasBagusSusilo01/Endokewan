@@ -13,7 +13,7 @@ body{
 .perangkat{
   position: relative;
 }
-.login{
+.login, .ui{
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -33,8 +33,8 @@ body{
 #Judul{
   font-size: 28px;
 }
-#tanya1, #nama{
-  font-size: 22px;
+#tanya1, #nama, #pemain{
+  font-size: 24px;
 }
 input{
   width: 90%;
@@ -55,4 +55,57 @@ input::placeholder{
 .login.hilang{
   pointer-events: none;
   visibility: hidden;
+  animation: glitchOut 0.5s steps(2,end);
+}
+
+@keyframes glitchOut{
+  0%{
+    transform:none;
+    filter:none;
+    opacity:1;
+  }
+
+  20%{
+    transform:translateX(-5px);
+    filter:hue-rotate(90deg);
+  }
+
+  40%{
+    transform:translateX(5px);
+    opacity:0.8;
+  }
+
+  60%{
+    transform:translateY(3px);
+    filter:invert(1);
+  }
+
+  100%{
+    transform:none;
+    opacity:0;
+  }
+}
+
+@keyframes glitchIn{
+
+  0%{
+    transform:translateX(10px);
+    opacity:0;
+    filter:invert(1);
+  }
+
+  20%{
+    transform:translateX(-10px);
+  }
+
+  40%{
+    transform:translateY(5px);
+    opacity:0.5;
+  }
+
+  100%{
+    transform:none;
+    opacity:1;
+    filter:none;
+  }
 }
