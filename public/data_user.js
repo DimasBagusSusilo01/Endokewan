@@ -40,13 +40,7 @@
       // ambil session
       const { data, error } =
         await supabase.auth.getSession();
-
-      console.log("SESSION:", data.session);
       console.log("ERROR:", error);
-
-      console.log("URL:", window.location.href);
-
-      console.log("LOCALSTORAGE:", localStorage);
 
       currentSession = data.session;
 
@@ -71,10 +65,6 @@
     // pantau perubahan auth
     supabase.auth.onAuthStateChange(
       (event, session) => {
-
-        console.log("EVENT:", event);
-        console.log("SESSION EVENT:", session);
-
         currentSession = session;
 
       }
