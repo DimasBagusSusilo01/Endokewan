@@ -130,7 +130,6 @@ input::placeholder{
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  margin-top: 10px;
   width: 60%;
   height: 60%;
 }
