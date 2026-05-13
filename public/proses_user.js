@@ -58,10 +58,20 @@ async function initAuth() {
 
   const login =
     document.getElementById('login');
+  
+  const ui = document.getElementById('ui');
 
 if (userData) {
   pemain.textContent = userData.nama;
   login.classList.add('hilang');
+  login.classList.remove('muncul');
+  ui.classList.remove('hilang');
+  ui.classList.add('muncul');
+}else{
+  login.classList.remove('hilang');
+  login.classList.add('muncul');
+  ui.classList.add('hilang');
+  ui.classList.remove('muncul');
 }
 }
 
