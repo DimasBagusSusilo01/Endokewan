@@ -55,8 +55,8 @@ input::placeholder{
   height: 45vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-evenly;
+  align-items: space-evenly;
 
   background-color: darkgreen;
   border: 10px solid white;
