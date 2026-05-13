@@ -65,10 +65,15 @@ input::placeholder{
   border-radius: 10px;
   box-shadow: 8px 8px 8px 10px rgba(255,255,255,0.6);
 }
-.login.hilang{
+.login.hilang, .ui.hilang{
   pointer-events: none;
   visibility: hidden;
   animation: glitchOut 0.5s steps(2,end);
+}
+.login.muncul, .ui.muncul{
+  pointer-events: auto;
+  visibility: visible;
+  animation: glitchIn 0.5s steps(2,end);
 }
 
 @keyframes glitchOut{
