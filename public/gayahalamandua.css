@@ -13,7 +13,7 @@ body{
 .perangkat{
   position: relative;
 }
-.login, .ui{
+.login{
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -48,9 +48,22 @@ input::placeholder{
 .ui{
   position: absolute;
   z-index: 10;
-  top: 10%;
+
+  top: 50%;
   left: 50%;
-  transform: translateY(-50%) translateX(-50%);
+  transform: translate(-50%, -50%);
+
+  width: 60vw;
+  height: 45vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: darkgreen;
+  border: 10px solid white;
+  border-radius: 10px;
+  box-shadow: 8px 8px 8px 10px rgba(255,255,255,0.6);
 }
 .login.hilang{
   pointer-events: none;
