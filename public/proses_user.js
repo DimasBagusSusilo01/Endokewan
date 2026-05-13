@@ -46,7 +46,7 @@ async function initAuth() {
   .from("DataPengguna")
   .select('*')
   .eq('email', currentSession.user.email)
-  .single();
+  .maybeSingle();
 
   if (dbError) {
     console.log(dbError);
