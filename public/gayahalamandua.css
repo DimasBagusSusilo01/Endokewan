@@ -127,3 +127,18 @@ input::placeholder{
     filter:none;
   }
 }
+.pesan{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
+.pesan_umum, .pesan_rahasia{
+  width: 40vw;
+  height: 40vh;
+  border: 4px solid black;
+  border-radius: 8px;
+}
+.pesan_umum{
+  left: 16%;
+}
