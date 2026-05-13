@@ -57,7 +57,7 @@ body{
 background-color: black;
 color:beige;
 }
-.daftarGoogle, .kembali{
+.daftarGoogle, .kembali, .daftar{
     transform: translateY(50%);
     background-color: transparent;
     border: 3px solid black;
