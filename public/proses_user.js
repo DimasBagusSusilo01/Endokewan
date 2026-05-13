@@ -44,7 +44,7 @@ const { data_dalam, error } =
 
 const pemain = document.getElementById('pemain'); 
 const login = document.getElementById('login');
-if (data_dalam.email == currentSession.user).email{
+if (data_dalam.email == currentSession.user.email){
   pemain.textContent = data_dalam.nama;
   login.classList.add('hilang');
 }
