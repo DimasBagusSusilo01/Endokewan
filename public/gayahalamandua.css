@@ -146,3 +146,6 @@ input::placeholder{
   border: 2px solid black;
   border-radius: 4px;
 }
+.pesan_umum,.pesan_rahasia,.lihat_profil{
+  text-align: center;
+}
