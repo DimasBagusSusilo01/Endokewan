@@ -40,11 +40,13 @@ async function initAuth() {
 
   // Ambil data pengguna
   const {
-    data: data_dalam,
-    error: dbError
-  } = await supabase
-    .from("DataPengguna")
-    .select('*');
+  data: userData,
+  error: dbError
+} = await supabase
+  .from("DataPengguna")
+  .select('*')
+  .eq('email', currentSession.user.email)
+  .single();
 
   if (dbError) {
     console.log(dbError);
@@ -57,20 +59,10 @@ async function initAuth() {
   const login =
     document.getElementById('login');
 
-  // Cari user yang emailnya sama
-  const userCocok = data_dalam.find(
-    item =>
-      item.email ===
-      currentSession.user.email
-  );
-
-  if (userCocok) {
-    pemain.textContent =
-      userCocok.nama;
-
-    login.classList.add('hilang');
-  }
-
+if (userData) {
+  pemain.textContent = userData.nama;
+  login.classList.add('hilang');
+}
 }
 
 initAuth();
