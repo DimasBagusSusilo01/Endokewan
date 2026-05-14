@@ -10,7 +10,7 @@ body{
     width: 100%;
     justify-content: space-around;
     align-items: center;
-    font-size: 22px;
+    font-size: 18px;
   }}
 @media (min-width:768px){
   .isi{
@@ -19,7 +19,7 @@ body{
     width: 100%;
     justify-content: space-around;
     align-items: center;
-    font-size: 22px;
+    font-size: 18px;
   }}
 .boxUtama{
     display: flex;
@@ -52,7 +52,7 @@ body{
 }
 #judul{
     padding-top: 0%;
-    font-size: 28px;
+    font-size: 26px;
 }
 #Login:hover,#tentang:hover{
 background-color: black;
@@ -63,7 +63,7 @@ color:beige;
     background-color: transparent;
     font-family: 'Share Tech Mono';
     text-align: center;
-    font-size: 28px;
+    font-size: 26px;
     color: chartreuse;
 }
 
@@ -80,7 +80,7 @@ color:beige;
   width: 100%;
   height: 100%;
   text-align: center;
-  font-size: 22px;
+  font-size: 18px;
   pointer-events: none;
   visibility: hidden;
 }
