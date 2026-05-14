@@ -85,7 +85,7 @@ color:beige;
   visibility: hidden;
 }
 .utama{
-  position: relative;
+  position: absolute;
   z-index: 49;
   width: 100%;
   text-align: center;
