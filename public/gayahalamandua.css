@@ -53,7 +53,7 @@ input::placeholder{
   transform: translate(-50%, -50%);
   width: 60vw;
   height: 45vh;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
@@ -64,11 +64,13 @@ input::placeholder{
   box-shadow: 8px 8px 8px 10px rgba(255,255,255,0.6);
 }
 .login.hilang, .ui.hilang{
+  display: none !important;
   pointer-events: none;
   visibility: hidden;
   animation: glitchOut 0.5s steps(2,end);
 }
 .login.muncul, .ui.muncul{
+  display: flex !important;
   pointer-events: auto;
   visibility: visible;
   animation: glitchIn 0.5s steps(2,end);

@@ -1,10 +1,12 @@
 .profil.muncul, .puutama.muncul, .prutama.muncul{
+  display: flex !important;
   pointer-events: auto;
   visibility: visible;
   animation: glitchIn 0.5s steps(2,end);
 }
 
 .profil.hilang, .puutama.hilang, .prutama.hilang{
+  display: none !important;
   pointer-events: none;
   visibility: hidden;
   animation: glitchOut 0.5s steps(2,end);
