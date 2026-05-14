@@ -50,7 +50,7 @@ body{
   z-index: 20;
 }
 #judul{
-    padding-top: 10%;
+    padding-top: 0%;
     font-size: 28px;
 }
 #Login:hover,#tentang:hover{
@@ -61,6 +61,7 @@ color:beige;
     transform: translateY(50%);
     background-color: transparent;
     font-family: 'Share Tech Mono';
+    text-align: center;
     font-size: 28px;
     color: chartreuse;
 }
@@ -83,9 +84,10 @@ color:beige;
   visibility: hidden;
 }
 .utama{
-  position: absolute;
+  position: relative;
   z-index: 49;
   width: 100%;
+  text-align: center;
   pointer-events: auto;
   visibility: visible;
 }
