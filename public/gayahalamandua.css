@@ -36,6 +36,9 @@ body{
 #tanya1, #nama, #pemain{
   font-size: 24px;
 }
+#pemain{
+  margin-top: 10px;
+}
 input{
   width: 90%;
   text-align: center;
@@ -143,6 +146,7 @@ input::placeholder{
 .lihat_profil{
   width: 20%;
   height: 20%;
+  margin-bottom: 10px;
   border-radius: 4px;
 }
 .pesan_umum,.pesan_rahasia,.lihat_profil{
