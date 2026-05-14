@@ -12,20 +12,21 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   </head>
   <body>
-    <div class="kotakluar"><div class="perangkat"><div class="login" id="login">
+    <div class="kotakluar"><div class="perangkat">
+      <div class="ui" id="ui">
+        <span id="pemain"></span><br><div class="pesan">
+           <div class="pesan_rahasia" id="pr">Kirimkan Pesan Pribadi</div>
+        <div class="pesan_umum" id="pu">Kirimkan Pesan Untuk Publik</div>
+        </div>
+        <div class="lihat_profil" id="profiltombol">Lihat Profil Anda</div>
+      </div>
+      
+      <div class="login" id="login">
       <p id="Judul">User Info:</p>
       <p id="tanya1">Masukkan Nama:</p> <input type="text" id="nama" class="nama" placeholder="-------------"/>
       <button class="kirimnama" id="kirimnama" onclick="kirimnama()">Kirim</button>
       </div>
       
-      <div class="ui" id="ui">
-      <span id="pemain"></span><br><div class="pesan">
-         <div class="pesan_rahasia" id="pr">Kirimkan Pesan Pribadi</div>
-      <div class="pesan_umum" id="pu">Kirimkan Pesan Untuk Publik</div>
-      </div>
-      <div class="lihat_profil" id="profiltombol">Lihat Profil Anda</div>
-    </div>
-    
       <div class="profil" id="profil">
         <p id="nama"></p>
         <div class="garis"></div>
