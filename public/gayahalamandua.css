@@ -45,7 +45,7 @@ input::placeholder{
   color: chartreuse;
   font-size: 20px;
 }
-.ui{
+.ui, .profil, .puutama, .prutama{
   position: absolute;
   z-index: 10;
   top: 50%;
