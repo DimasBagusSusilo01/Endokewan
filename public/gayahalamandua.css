@@ -138,15 +138,14 @@ input::placeholder{
 .pesan_umum, .pesan_rahasia{
   width: 60%;
   height: 60%;
-  border: 4px solid black;
   border-radius: 8px;
 }
 .lihat_profil{
   width: 20%;
   height: 20%;
-  border: 2px solid black;
   border-radius: 4px;
 }
 .pesan_umum,.pesan_rahasia,.lihat_profil{
   text-align: center;
+  font-size: 22px;
 }
