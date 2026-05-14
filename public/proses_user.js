@@ -55,10 +55,8 @@ async function initAuth() {
 
   const pemain =
     document.getElementById('pemain');
-
   const login =
     document.getElementById('login');
-  
   const ui = document.getElementById('ui');
 
 if (userData) {
