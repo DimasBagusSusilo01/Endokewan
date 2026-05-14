@@ -1,11 +1,11 @@
-pr = document.getElementById('pr');
-pu = document.getElementById('pu');
-profil = document.getElementById('profiltombol');
+const pr = document.getElementById('pr');
+const pu = document.getElementById('pu');
+const profil = document.getElementById('profiltombol');
 
-ui = document.getElementById('ui');
-prutama = document.getElementById('prutama');
-puutama = document.getElementById('puutama');
-profilutama = document.getElementById('profil');
+const ui = document.getElementById('ui');
+const prutama = document.getElementById('prutama');
+const puutama = document.getElementById('puutama');
+const profilutama = document.getElementById('profil');
 
 pr.addEventListener('click', function(){
     prutama.classList.add('muncul');
