@@ -1,5 +1,6 @@
 body{
     padding: 0; margin: 0;
+    overflow: hidden;
     color: chartreuse;
 }
 @media (max-width:480px){
@@ -84,7 +85,7 @@ color:beige;
   visibility: hidden;
 }
 .utama{
-  position: absolute;
+  position: relative;
   z-index: 49;
   width: 100%;
   text-align: center;
