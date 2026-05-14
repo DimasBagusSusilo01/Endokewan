@@ -60,7 +60,6 @@ color:beige;
 .daftarGoogle, .kembali, .daftar{
     transform: translateY(50%);
     background-color: transparent;
-    border: 3px solid black;
     font-family: 'Share Tech Mono';
     font-size: 28px;
     color: chartreuse;
@@ -86,6 +85,7 @@ color:beige;
 .utama{
   position: absolute;
   z-index: 49;
+  width: 100%;
   pointer-events: auto;
   visibility: visible;
 }
