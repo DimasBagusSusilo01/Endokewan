@@ -55,7 +55,10 @@ async function initAuth() {
 }
 initAuth()
 const kirim_ide = document.getElementById('kirim_ide');
+const popup = document.getElementById('popup');
 kirim_ide.addEventListener('click', function(){
+    popup.classList.add('muncul');
+    popup.classList.remove('hilang');
     const yes = document.getElementById('yes');
     const no = document.getElementById('no');
     const input_ide = document.getElementById('input_ide').value;
@@ -67,6 +70,10 @@ kirim_ide.addEventListener('click', function(){
             id: currentSession.user.id,
             pesan_publik: input_ide
           });
+        if (error){
+            console.log(error);
+            alert('error bos! ', error)
+        }
     });
     no.addEventListener('click',async function(){
         const { data, error } =
@@ -76,6 +83,9 @@ kirim_ide.addEventListener('click', function(){
             id: currentSession.user.id,
             pesan_private: input_ide
           });
+        if (error){
+            console.log(error);
+            alert('error bos ', error)
+        }
     });
-    alert('data disimpan');
 });
