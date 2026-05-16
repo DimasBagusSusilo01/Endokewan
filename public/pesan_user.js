@@ -59,7 +59,7 @@ kirim_ide.addEventListener('click', function(){
     const yes = document.getElementById('yes');
     const no = document.getElementById('no');
     const input_ide = document.getElementById('input_ide').value;
-    yes.addEventListener('click', function(){
+    yes.addEventListener('click', async function(){
         const { data, error } =
         await supabase
           .from("PesanPengguna")
