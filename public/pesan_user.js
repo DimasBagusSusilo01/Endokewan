@@ -55,7 +55,7 @@ async function initAuth() {
 }
 initAuth()
 const ui = document.getElementById('ui');
-const pesan = document.getElementById('pesan'); // Ini akan menjadi kontainer semua pesan
+const pesan = document.getElementById('pesan'); 
 const kirim_ide = document.getElementById('kirim_ide');
 const popup = document.getElementById('popup');
 const sesiketik0 = document.getElementById('sesiketik0');
@@ -86,21 +86,16 @@ async function muatSemuaPesanPublik() {
         console.error('Gagal memuat pesan:', error.message);
         return;
     }
-
-    // SEKARANG: Kosongkan isi div 'pesan' sebelum diisi daftar data terbaru
     pesan.innerHTML = '';
 
-    // Masukkan semua data ke dalam div 'pesan'
     data.forEach((baris) => {
         const elemenPesan = document.createElement('p');
         elemenPesan.textContent = baris.pesan_publik;
         elemenPesan.className = 'isi-pesan-publik'; 
         
-        pesan.appendChild(elemenPesan); // Langsung masukkan ke elemen 'pesan'
+        pesan.appendChild(elemenPesan);
     });
 }
-
-// Jalankan fungsi muat data pertama kali saat aplikasi dibuka
 muatSemuaPesanPublik();
 
 yes.addEventListener('click', async function(){
@@ -120,8 +115,7 @@ yes.addEventListener('click', async function(){
         return; 
     }
     
-    // Catatan: Teks status dihapus dari sini agar tidak menimpa daftar pesan yang mau dimuat
-    await muatSemuaPesanPublik(); // Otomatis memperbarui isi div 'pesan' dengan data paling baru
+    await muatSemuaPesanPublik(); 
     tutupPopup();
 });
 
@@ -141,7 +135,5 @@ no.addEventListener('click', async function(){
         alert('error bos! ' + error.message);
         return; 
     }
-    
-    // Karena private tidak merubah daftar publik, kita cukup tutup popup saja
     tutupPopup();
 });
