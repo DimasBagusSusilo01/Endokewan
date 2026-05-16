@@ -2,6 +2,7 @@ const ketik = document.getElementById('ketik');
 const pribadi = document.getElementById('pribadi');
 const publik = document.getElementById('publik');
 const kirim = document.getElementById('kirim_ide');
+const kembali = document.getElementById('kembali');
 
 ui = document.getElementById('ui');
 sesiketik = document.getElementById('sesiketik');
