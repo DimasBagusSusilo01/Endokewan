@@ -68,7 +68,7 @@ kirim_ide.addEventListener('click', function(){
             pesan_publik: input_ide
           });
     });
-    no.addEventListener('click', function(){
+    no.addEventListener('click',async function(){
         const { data, error } =
         await supabase
           .from("PesanPengguna")
