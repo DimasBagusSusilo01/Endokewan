@@ -74,7 +74,35 @@ function tutupPopup(){
       ui.classList.add('muncul');
       ui.classList.remove('hilang');
   }
-    
+ 
+async function muatSemuaPesanPublik() {
+    const { data, error } = await supabase
+        .from('PesanPengguna')
+        .select('pesan_publik')
+        .not('pesan_publik', 'is', null); // Hanya ambil yang tidak null
+
+    if (error) {
+        console.error('Gagal memuat pesan:', error.message);
+        return;
+    }
+
+    // Kosongkan kontainer sebelum diisi data terbaru
+    pesan.innerHTML = '';
+
+    // Cetak semua data ke HTML
+    data.forEach((baris) => {
+        const elemenPesan = document.createElement('p');
+        elemenPesan.textContent = baris.pesan_publik;
+        elemenPesan.className = 'isi-pesan-publik'; // Kamu bisa beri styling CSS lewat class ini
+        kontainer_pesan.appendChild(elemenPesan);
+    });
+}
+
+// --- EVENT LISTENERS ---
+
+// Jalankan fungsi muat data pertama kali saat aplikasi dibuka
+muatSemuaPesanPublik();
+
 yes.addEventListener('click', async function(){
   const input_ide = document.getElementById('input_ide').value;
   const { data, error } =
@@ -90,7 +118,7 @@ yes.addEventListener('click', async function(){
       console.log(error);
         alert('error bos! ', error)
       }
-      pesan.textContent = pesan_publik + '[publik]'
+      //pesan.textContent = pesan_publik + '[publik]'
       tutupPopup();
   });
 no.addEventListener('click',async function(){
@@ -108,6 +136,6 @@ no.addEventListener('click',async function(){
       console.log(error);
       alert('error bos ', error)
   }
-  pesan.textContent = pesan_private + '[private]'
+  //pesan.textContent = pesan_private + '[private]'
   tutupPopup();
 });
