@@ -5,7 +5,7 @@ const kirim = document.getElementById('kirim_ide');
 const kembali = document.getElementById('kembali');
 
 const ui = document.getElementById('ui');
-sesiketik = document.getElementById('sesiketik');
+const sesiketik = document.getElementById('sesiketik0');
 
 ketik.addEventListener('click', function(){
     sesiketik.classList.add('muncul');
