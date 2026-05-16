@@ -54,6 +54,8 @@ async function initAuth() {
     }
 }
 initAuth()
+const ui = document.getElementById('ui');
+const pesan = document.getElementById('pesan');
 const kirim_ide = document.getElementById('kirim_ide');
 const popup = document.getElementById('popup');
 const sesiketik0 = document.getElementById('sesiketik0');
@@ -72,11 +74,14 @@ kirim_ide.addEventListener('click', function(){
           .insert({
             id: currentSession.user.id,
             pesan_publik: input_ide
-          });
+          }).select('*')
+          .eq('id', currentSession.user.id)
+          .maybeSingle();
         if (error){
             console.log(error);
             alert('error bos! ', error)
         }
+        pesan.textContent = pesan_publik + '[publik]'
     });
     no.addEventListener('click',async function(){
         const { data, error } =
@@ -85,10 +90,17 @@ kirim_ide.addEventListener('click', function(){
           .insert({
             id: currentSession.user.id,
             pesan_private: input_ide
-          });
+          }).select('*')
+          .eq('id', currentSession.user.id)
+          .maybeSingle();
         if (error){
             console.log(error);
             alert('error bos ', error)
         }
+        pesan.textContent = pesan_private + '[private]'
     });
+    popup.classList.remove('muncul');
+    popup.classList.add('hilang');
+    ui.classList.add('muncul');
+    ui.classList.remove('hilang');
 });
