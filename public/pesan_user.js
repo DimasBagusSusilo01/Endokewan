@@ -59,48 +59,55 @@ const pesan = document.getElementById('pesan');
 const kirim_ide = document.getElementById('kirim_ide');
 const popup = document.getElementById('popup');
 const sesiketik0 = document.getElementById('sesiketik0');
+const yes = document.getElementById('yes');
+const no = document.getElementById('no');
+
 kirim_ide.addEventListener('click', function(){
     popup.classList.add('muncul');
     popup.classList.remove('hilang');
     sesiketik0.classList.add('hilang');
-    sesiketik0.classList.remove('muncul');
-    const yes = document.getElementById('yes');
-    const no = document.getElementById('no');
-    const input_ide = document.getElementById('input_ide').value;
-    yes.addEventListener('click', async function(){
-        const { data, error } =
-        await supabase
-          .from("PesanPengguna")
-          .insert({
-            id: currentSession.user.id,
-            pesan_publik: input_ide
-          }).select('*')
-          .eq('id', currentSession.user.id)
-          .maybeSingle();
-        if (error){
-            console.log(error);
-            alert('error bos! ', error)
-        }
-        pesan.textContent = pesan_publik + '[publik]'
-    });
-    no.addEventListener('click',async function(){
-        const { data, error } =
-        await supabase
-          .from("PesanPengguna")
-          .insert({
-            id: currentSession.user.id,
-            pesan_private: input_ide
-          }).select('*')
-          .eq('id', currentSession.user.id)
-          .maybeSingle();
-        if (error){
-            console.log(error);
-            alert('error bos ', error)
-        }
-        pesan.textContent = pesan_private + '[private]'
-    });
-    popup.classList.remove('muncul');
-    popup.classList.add('hilang');
-    ui.classList.add('muncul');
-    ui.classList.remove('hilang');
+    sesiketik0.classList.remove('muncul');});
+
+function tutupPopup(){
+      popup.classList.remove('muncul');
+      popup.classList.add('hilang');
+      ui.classList.add('muncul');
+      ui.classList.remove('hilang');
+  }
+    
+yes.addEventListener('click', async function(){
+  const input_ide = document.getElementById('input_ide').value;
+  const { data, error } =
+  await supabase
+    .from("PesanPengguna")
+    .insert({
+      id: currentSession.user.id,
+      pesan_publik: input_ide
+      }).select('*')
+      .eq('id', currentSession.user.id)
+      .maybeSingle();
+    if (error){
+      console.log(error);
+        alert('error bos! ', error)
+      }
+      pesan.textContent = pesan_publik + '[publik]'
+      tutupPopup();
+  });
+no.addEventListener('click',async function(){
+  const input_ide = document.getElementById('input_ide').value;
+  const { data, error } =
+  await supabase
+    .from("PesanPengguna")
+    .insert({
+      id: currentSession.user.id,
+      pesan_private: input_ide
+    }).select('*')
+    .eq('id', currentSession.user.id)
+    .maybeSingle();
+  if (error){
+      console.log(error);
+      alert('error bos ', error)
+  }
+  pesan.textContent = pesan_private + '[private]'
+  tutupPopup();
 });
