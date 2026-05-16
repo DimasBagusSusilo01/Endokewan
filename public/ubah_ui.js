@@ -4,7 +4,7 @@ const publik = document.getElementById('publik');
 const kirim = document.getElementById('kirim_ide');
 const kembali = document.getElementById('kembali');
 
-ui = document.getElementById('ui');
+const ui = document.getElementById('ui');
 sesiketik = document.getElementById('sesiketik');
 
 ketik.addEventListener('click', function(){
