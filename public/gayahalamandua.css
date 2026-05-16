@@ -35,7 +35,9 @@ body{
   border-radius: 10px;
   box-shadow: 8px 8px 8px 10px rgba(255, 255, 255, 0.5);
 }
-.nama, .kirim_ide{
+.nama, .kirim_ide, .kembali{
+  color: chartreuse;
+  font-family: 'Share Tech Mono';
   background-color: transparent;
   border-color: transparent;
 }
@@ -45,7 +47,7 @@ body{
 #tanya1, #nama, #pemain, #judulketik, #kirimide{
   font-size: 24px;
 }
-#pemain, #judulketik{
+#pemain{
   padding-top: 10px;
 }
 input{
@@ -162,5 +164,24 @@ input::placeholder{
 }
 .sesiketik{
   position: relative;
-  z-index: 20;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  top: 25%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  width: 60vw;
+  height: 45vh;
+  align-items: center;
+  background-color: darkgreen;
+  border: 10px solid white;
+  border-radius: 10px;
+  box-shadow: 8px 8px 8px 10px rgba(255,255,255,0.5);
+}
+.input_ide{
+  width: 90%;
+  height: 50%;
+  background-color: transparent;
+  font-family: 'Share Tech Mono';
+  color: chartreuse;
 }
