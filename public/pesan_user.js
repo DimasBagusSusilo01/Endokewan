@@ -87,7 +87,7 @@ async function muatSemuaPesanPublik() {
     }
 
     // Kosongkan kontainer sebelum diisi data terbaru
-    pesan.innerHTML = '';
+    pesan.textContent = '';
 
     // Cetak semua data ke HTML
     data.forEach((baris) => {
