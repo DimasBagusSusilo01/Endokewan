@@ -45,7 +45,7 @@ async function initAuth() {
     .select(`
     id, email, nama, status,
     PesanPengguna(
-        nama,pesan_publik,pesan_private
+        id,pesan_publik,pesan_private
     )`);
   
     if (dbError) {
