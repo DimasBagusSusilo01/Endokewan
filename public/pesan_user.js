@@ -14,7 +14,7 @@ const supabase = window.supabase.createClient(
     }
   }
 );
-
+let currentSession = null;
 async function initAuth() {
 
     await new Promise(resolve =>
@@ -53,3 +53,29 @@ async function initAuth() {
       return;
     }
 }
+initAuth()
+const kirim_ide = document.getElementById('kirim_ide');
+kirim_ide.addEventListener('click', function(){
+    const yes = document.getElementById('yes');
+    const no = document.getElementById('no');
+    const input_ide = document.getElementById('input_ide').value;
+    yes.addEventListener('click', function(){
+        const { data, error } =
+        await supabase
+          .from("PesanPengguna")
+          .insert({
+            id: currentSession.user.id,
+            pesan_publik: input_ide
+          });
+    });
+    no.addEventListener('click', function(){
+        const { data, error } =
+        await supabase
+          .from("PesanPengguna")
+          .insert({
+            id: currentSession.user.id,
+            pesan_private: input_ide
+          });
+    });
+    alert('data disimpan');
+});
