@@ -74,13 +74,13 @@ input::placeholder{
   border-radius: 10px;
   box-shadow: 8px 8px 8px 10px rgba(255,255,255,0.5);
 }
-.login.hilang, .ui.hilang, .sesiketik{
+.login.hilang, .ui.hilang, .sesiketik.hilang{
   display: none !important;
   pointer-events: none;
   visibility: hidden;
   animation: glitchOut 0.5s steps(2,end);
 }
-.login.muncul, .ui.muncul, .sesiketik{
+.login.muncul, .ui.muncul, .sesiketik.muncul{
   display: flex !important;
   pointer-events: auto;
   visibility: visible;
