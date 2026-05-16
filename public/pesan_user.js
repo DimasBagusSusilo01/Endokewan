@@ -56,9 +56,12 @@ async function initAuth() {
 initAuth()
 const kirim_ide = document.getElementById('kirim_ide');
 const popup = document.getElementById('popup');
+const sesiketik0 = document.getElementById('sesiketik0');
 kirim_ide.addEventListener('click', function(){
     popup.classList.add('muncul');
     popup.classList.remove('hilang');
+    sesiketik0.classList.add('hilang');
+    sesiketik0.classList.remove('muncul');
     const yes = document.getElementById('yes');
     const no = document.getElementById('no');
     const input_ide = document.getElementById('input_ide').value;
