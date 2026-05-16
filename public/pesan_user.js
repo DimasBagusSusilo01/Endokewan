@@ -55,7 +55,7 @@ async function initAuth() {
 }
 initAuth()
 const ui = document.getElementById('ui');
-const pesan = document.getElementById('pesan');
+const pesan = document.getElementById('pesan'); // Ini akan menjadi kontainer semua pesan
 const kirim_ide = document.getElementById('kirim_ide');
 const popup = document.getElementById('popup');
 const sesiketik0 = document.getElementById('sesiketik0');
@@ -66,76 +66,82 @@ kirim_ide.addEventListener('click', function(){
     popup.classList.add('muncul');
     popup.classList.remove('hilang');
     sesiketik0.classList.add('hilang');
-    sesiketik0.classList.remove('muncul');});
+    sesiketik0.classList.remove('muncul');
+});
 
 function tutupPopup(){
-      popup.classList.remove('muncul');
-      popup.classList.add('hilang');
-      ui.classList.add('muncul');
-      ui.classList.remove('hilang');
-  }
+    popup.classList.remove('muncul');
+    popup.classList.add('hilang');
+    ui.classList.add('muncul');
+    ui.classList.remove('hilang');
+}
  
 async function muatSemuaPesanPublik() {
     const { data, error } = await supabase
         .from('PesanPengguna')
         .select('pesan_publik')
-        .not('pesan_publik', 'is', null); // Hanya ambil yang tidak null
+        .not('pesan_publik', 'is', null); 
 
     if (error) {
         console.error('Gagal memuat pesan:', error.message);
         return;
     }
 
-    // Kosongkan kontainer sebelum diisi data terbaru
-    pesan.textContent = '';
+    // SEKARANG: Kosongkan isi div 'pesan' sebelum diisi daftar data terbaru
+    pesan.innerHTML = '';
 
-    // Cetak semua data ke HTML
+    // Masukkan semua data ke dalam div 'pesan'
     data.forEach((baris) => {
         const elemenPesan = document.createElement('p');
         elemenPesan.textContent = baris.pesan_publik;
-        elemenPesan.className = 'isi-pesan-publik'; // Kamu bisa beri styling CSS lewat class ini
-        kontainer_pesan.appendChild(elemenPesan);
+        elemenPesan.className = 'isi-pesan-publik'; 
+        
+        pesan.appendChild(elemenPesan); // Langsung masukkan ke elemen 'pesan'
     });
 }
-
-// --- EVENT LISTENERS ---
 
 // Jalankan fungsi muat data pertama kali saat aplikasi dibuka
 muatSemuaPesanPublik();
 
 yes.addEventListener('click', async function(){
-  const input_ide = document.getElementById('input_ide').value;
-  const { data, error } =
-  await supabase
-    .from("PesanPengguna")
-    .insert({
-      id: currentSession.user.id,
-      pesan_publik: input_ide
-      }).select('*')
-      .eq('id', currentSession.user.id)
-      .maybeSingle();
+    const input_ide = document.getElementById('input_ide').value;
+    const { data, error } = await supabase
+        .from("PesanPengguna")
+        .insert({
+            id: currentSession.user.id,
+            pesan_publik: input_ide
+        }).select('*')
+        .eq('id', currentSession.user.id)
+        .maybeSingle();
+
     if (error){
-      console.log(error);
-        alert('error bos! ', error)
-      }
-      //pesan.textContent = pesan_publik + '[publik]'
-      tutupPopup();
-  });
-no.addEventListener('click',async function(){
-  const input_ide = document.getElementById('input_ide').value;
-  const { data, error } =
-  await supabase
-    .from("PesanPengguna")
-    .insert({
-      id: currentSession.user.id,
-      pesan_private: input_ide
-    }).select('*')
-    .eq('id', currentSession.user.id)
-    .maybeSingle();
-  if (error){
-      console.log(error);
-      alert('error bos ', error)
-  }
-  //pesan.textContent = pesan_private + '[private]'
-  tutupPopup();
+        console.log(error);
+        alert('error bos! ' + error.message);
+        return; 
+    }
+    
+    // Catatan: Teks status dihapus dari sini agar tidak menimpa daftar pesan yang mau dimuat
+    await muatSemuaPesanPublik(); // Otomatis memperbarui isi div 'pesan' dengan data paling baru
+    tutupPopup();
+});
+
+no.addEventListener('click', async function(){
+    const input_ide = document.getElementById('input_ide').value;
+    const { data, error } = await supabase
+        .from("PesanPengguna")
+        .insert({
+            id: currentSession.user.id,
+            pesan_private: input_ide
+        }).select('*')
+        .eq('id', currentSession.user.id)
+        .maybeSingle();
+
+    if (error){
+        console.log(error);
+        alert('error bos! ' + error.message);
+        return; 
+    }
+    
+    // Karena private tidak merubah daftar publik, kita cukup tutup popup saja
+    tutupPopup();
 });
