@@ -6,6 +6,7 @@ const kembali = document.getElementById('kembali');
 
 const ui = document.getElementById('ui');
 const sesiketik = document.getElementById('sesiketik0');
+const rumahPribadi = document.getElementById('rumahPribadi');
 
 ketik.addEventListener('click', function(){
     sesiketik.classList.add('muncul');
@@ -13,6 +14,27 @@ ketik.addEventListener('click', function(){
 
     ui.classList.add('hilang');
     ui.classList.remove('muncul');
+});
+publik.addEventListener('click', function(){
+    ui.classList.add('muncul');
+    ui.classList.remove('hilang');
+
+    sesiketik.classList.add('hilang');
+    sesiketik.classList.remove('muncul');
+
+    rumahPribadi.classList.add('hilang');
+    rumahPribadi.classList.add('muncul');
+});
+
+pribadi.addEventListener('click', function(){
+    ui.classList.add('hilang');
+    ui.classList.remove('muncul');
+
+    sesiketik.classList.add('hilang');
+    sesiketik.classList.remove('muncul');
+
+    rumahPribadi.classList.add('muncul');
+    rumahPribadi.classList.add('hilang');
 });
 
 kembali.addEventListener('click', function(){

@@ -59,10 +59,9 @@ input::placeholder{
   color: chartreuse;
   font-size: 20px;
 }
-.ui{
+.ui, .rumahPribadi{
   position: relative;
   overflow-y: auto;
-  z-index: 10;
   top: 25%;
   left: 30%;
   transform: translate(-50%, -50%);
@@ -77,13 +76,19 @@ input::placeholder{
   border-radius: 10px;
   box-shadow: 8px 8px 8px 10px rgba(255,255,255,0.5);
 }
-.login.hilang, .ui.hilang, .sesiketik.hilang, .popup.hilang{
+.ui{
+  z-index: 10;
+}
+.rumahPribadi{
+  z-index: 11;
+}
+.login.hilang, .ui.hilang, .sesiketik.hilang, .popup.hilang, .rumahPribadi.hilang{
   display: none !important;
   pointer-events: none;
   visibility: hidden;
   animation: glitchOut 0.5s steps(2,end);
 }
-.login.muncul, .ui.muncul, .sesiketik.muncul, .popup.muncul{
+.login.muncul, .ui.muncul, .sesiketik.muncul, .popup.muncul, .rumahPribadi.muncul{
   display: flex !important;
   pointer-events: auto;
   visibility: visible;

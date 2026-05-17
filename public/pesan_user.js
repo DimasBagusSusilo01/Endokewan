@@ -56,6 +56,7 @@ async function initAuth() {
 initAuth()
 const ui = document.getElementById('ui');
 const pesan = document.getElementById('pesan'); 
+const pesan_priv = document.getElementById('pesan_priv');
 const kirim_ide = document.getElementById('kirim_ide');
 const popup = document.getElementById('popup');
 const sesiketik0 = document.getElementById('sesiketik0');
@@ -79,7 +80,8 @@ function tutupPopup(){
 async function muatSemuaPesanPublik() {
     const { data, error } = await supabase
         .from('PesanPengguna')
-        .select('pesan_publik')
+        .select(`pesan_publik,
+        DataPengguna(nama)`)
         .not('pesan_publik', 'is', null); 
 
     if (error) {
@@ -90,13 +92,39 @@ async function muatSemuaPesanPublik() {
 
     data.forEach((baris) => {
         const elemenPesan = document.createElement('p');
-        elemenPesan.textContent = '+' + baris.pesan_publik + '[publik]';
+        elemenPesan.textContent = baris.DataPengguna.nama + baris.pesan_publik + '[publik]';
         elemenPesan.className = 'isi-pesan-publik'; 
         
         pesan.appendChild(elemenPesan);
     });
 }
-muatSemuaPesanPublik()
+//muatSemuaPesanPublik()
+
+async function muatSemuaPesanPribadi() {
+  const { data, error } = await supabase
+      .from('PesanPengguna')
+      .select('pesan_publik')
+      .not('pesan_private', 'is', null); 
+
+  if (error) {
+      console.error('Gagal memuat pesan:', error.message);
+      return;
+  }
+  pesan_priv.innerHTML = '';
+
+  data.forEach((baris) => {
+      const elemenPesan = document.createElement('p');
+      elemenPesan.textContent = '[Me]' + baris.pesan_private;
+      elemenPesan.className = 'isi-pesan-private'; 
+      
+      pesan_priv.appendChild(elemenPesan);
+  });
+}
+if (ui.classList.contains('muncul') && sesiketik.classList.contains('hilang') && rumahPribadi.classList.contains('hilang')){
+  muatSemuaPesanPublik();
+}else if(ui.classList.contains('hilang') && sesiketik.classList.contains('hilang') && rumahPribadi.classList.contains('muncul')){
+  muatSemuaPesanPribadi();
+}
 yes.addEventListener('click', async function(){
     const input_ide = document.getElementById('input_ide').value;
     const { data, error } = await supabase
@@ -134,5 +162,7 @@ no.addEventListener('click', async function(){
         alert('error bos! ' + error.message);
         return; 
     }
+    await muatSemuaPesanPribadi();
     tutupPopup();
 });
+
