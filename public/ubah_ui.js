@@ -23,7 +23,7 @@ publik.addEventListener('click', function(){
     sesiketik.classList.remove('muncul');
 
     rumahPribadi.classList.add('hilang');
-    rumahPribadi.classList.add('muncul');
+    rumahPribadi.classList.remove('muncul');
 });
 
 pribadi.addEventListener('click', function(){
@@ -34,7 +34,7 @@ pribadi.addEventListener('click', function(){
     sesiketik.classList.remove('muncul');
 
     rumahPribadi.classList.add('muncul');
-    rumahPribadi.classList.add('hilang');
+    rumahPribadi.classList.remove('hilang');
 });
 
 kembali.addEventListener('click', function(){
