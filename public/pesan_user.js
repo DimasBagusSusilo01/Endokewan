@@ -90,10 +90,10 @@ async function muatSemuaPesanPublik() {
 
     data.forEach((baris) => {
         const elemenPesan = document.createElement('p');
-        elemenPesan.textContent = baris.pesan_publik;
+        elemenPesan.textContent = '+' + baris.pesan_publik + '[publik]';
         elemenPesan.className = 'isi-pesan-publik'; 
         
-        pesan.appendChild('+' + elemenPesan + '[Publik]');
+        pesan.appendChild(elemenPesan);
     });
 }
 muatSemuaPesanPublik()
