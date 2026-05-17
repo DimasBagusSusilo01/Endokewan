@@ -14,6 +14,9 @@ ketik.addEventListener('click', function(){
 
     ui.classList.add('hilang');
     ui.classList.remove('muncul');
+
+    rumahPribadi.classList.add('hilang');
+    rumahPribadi.classList.remove('muncul');
 });
 publik.addEventListener('click', function(){
     ui.classList.add('muncul');
@@ -43,4 +46,7 @@ kembali.addEventListener('click', function(){
 
     sesiketik.classList.add('hilang');
     sesiketik.classList.remove('muncul');
+
+    rumahPribadi.classList.add('hilang');
+    rumahPribadi.classList.remove('muncul');
 });
