@@ -81,7 +81,7 @@ async function muatSemuaPesanPublik() {
     const { data, error } = await supabase
         .from('PesanPengguna')
         .select(`pesan_publik,
-        DataPengguna(nama)`)
+        pengguna: DataPengguna(nama)`)
         .not('pesan_publik', 'is', null); 
 
     if (error) {
@@ -92,7 +92,7 @@ async function muatSemuaPesanPublik() {
 
     data.forEach((baris) => {
         const elemenPesan = document.createElement('p');
-        elemenPesan.textContent = baris.DataPengguna.nama + baris.pesan_publik + '[publik]';
+        elemenPesan.textContent = baris.pengguna.nama + baris.pesan_publik + '[publik]';
         elemenPesan.className = 'isi-pesan-publik'; 
         
         pesan.appendChild(elemenPesan);
