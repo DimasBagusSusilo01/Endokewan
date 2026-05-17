@@ -93,11 +93,10 @@ async function muatSemuaPesanPublik() {
         elemenPesan.textContent = baris.pesan_publik;
         elemenPesan.className = 'isi-pesan-publik'; 
         
-        pesan.appendChild(elemenPesan);
+        pesan.appendChild('+' + elemenPesan + '[Publik]');
     });
 }
-muatSemuaPesanPublik();
-
+muatSemuaPesanPublik()
 yes.addEventListener('click', async function(){
     const input_ide = document.getElementById('input_ide').value;
     const { data, error } = await supabase
