@@ -97,6 +97,8 @@ async function muatSemuaPesanPublik() {
         
         pesan.appendChild(elemenPesan);
     });
+    console.log(error);
+    console.log(data);
 }
 //muatSemuaPesanPublik()
 
