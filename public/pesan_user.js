@@ -106,7 +106,7 @@ async function muatSemuaPesanPribadi() {
   const { data, error } = await supabase
       .from('PesanPengguna')
       .select('pesan_private')
-      .eq('email', currentSession.user.email)
+      .eq('id', currentSession.user.id)
       .not('pesan_private', 'is', null); 
 
   if (error) {
