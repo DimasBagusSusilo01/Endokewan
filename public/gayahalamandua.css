@@ -35,7 +35,7 @@ body{
   border-radius: 10px;
   box-shadow: 8px 8px 8px 10px rgba(255, 255, 255, 0.5);
 }
-.nama, .kirim_ide, .kembali{
+.nama, .kirim_ide, .kembali, .kembali2{
   color: chartreuse;
   font-family: 'Share Tech Mono';
   background-color: transparent;
@@ -44,10 +44,10 @@ body{
 #Judul{
   font-size: 28px;
 }
-#tanya1, #nama, #pemain, #judulketik, #kirimide{
+#tanya1, #nama, #pemain, #pemain2, #judulketik, #kirimide{
   font-size: 24px;
 }
-#pemain{
+#pemain, #pemain2{
   padding-top: 10px;
 }
 input{

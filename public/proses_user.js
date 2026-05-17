@@ -55,12 +55,14 @@ async function initAuth() {
 
   const pemain =
     document.getElementById('pemain');
+  const pemain2 = document.getElementById('pemain2');
   const login =
     document.getElementById('login');
   const ui = document.getElementById('ui');
 
 if (userData) {
   pemain.textContent = userData.nama;
+  pemain2.textContent = userData.nama;
   login.classList.add('hilang');
   login.classList.remove('muncul');
   ui.classList.remove('hilang');

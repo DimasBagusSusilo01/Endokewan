@@ -100,12 +100,13 @@ async function muatSemuaPesanPublik() {
     console.log(error);
     console.log(data);
 }
-//muatSemuaPesanPublik()
+muatSemuaPesanPublik()
 
 async function muatSemuaPesanPribadi() {
   const { data, error } = await supabase
       .from('PesanPengguna')
       .select('pesan_private')
+      .eq('email', currentSession.user.email)
       .not('pesan_private', 'is', null); 
 
   if (error) {
@@ -122,9 +123,9 @@ async function muatSemuaPesanPribadi() {
       pesan_priv.appendChild(elemenPesan);
   });
 }
-if (ui.classList.contains('muncul') && sesiketik0.classList.contains('hilang') && rumahPribadi.classList.contains('hilang')){
+if (ui.classList.contains('muncul') && rumahPribadi.classList.contains('hilang')){
   muatSemuaPesanPublik();
-}else if(ui.classList.contains('hilang') && sesiketik0.classList.contains('hilang') && rumahPribadi.classList.contains('muncul')){
+}else if(ui.classList.contains('hilang') && rumahPribadi.classList.contains('muncul')){
   muatSemuaPesanPribadi();
 }
 yes.addEventListener('click', async function(){
