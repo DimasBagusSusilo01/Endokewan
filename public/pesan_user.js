@@ -92,7 +92,7 @@ async function muatSemuaPesanPublik() {
 
     data.forEach((baris) => {
         const elemenPesan = document.createElement('p');
-        elemenPesan.textContent = baris.pengguna.nama + baris.pesan_publik + '[publik]';
+        elemenPesan.textContent = baris.pengguna.nama +': '+ baris.pesan_publik + '[publik]';
         elemenPesan.className = 'isi-pesan-publik'; 
         
         pesan.appendChild(elemenPesan);
