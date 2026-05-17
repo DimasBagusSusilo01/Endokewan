@@ -1,6 +1,5 @@
 const ketik = document.getElementById('ketik');
 const pribadi = document.getElementById('pribadi');
-const publik = document.getElementById('publik');
 const kirim = document.getElementById('kirim_ide');
 const kembali = document.getElementById('kembali');
 const kembali2 = document.getElementById('kembali2');
@@ -15,16 +14,6 @@ ketik.addEventListener('click', function(){
 
     ui.classList.add('hilang');
     ui.classList.remove('muncul');
-
-    rumahPribadi.classList.add('hilang');
-    rumahPribadi.classList.remove('muncul');
-});
-publik.addEventListener('click', function(){
-    ui.classList.add('muncul');
-    ui.classList.remove('hilang');
-
-    sesiketik.classList.add('hilang');
-    sesiketik.classList.remove('muncul');
 
     rumahPribadi.classList.add('hilang');
     rumahPribadi.classList.remove('muncul');
