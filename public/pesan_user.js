@@ -62,6 +62,7 @@ const popup = document.getElementById('popup');
 const sesiketik0 = document.getElementById('sesiketik0');
 const yes = document.getElementById('yes');
 const no = document.getElementById('no');
+const pribadi = document.getElementById('pribadi');
 
 kirim_ide.addEventListener('click', function(){
     popup.classList.add('muncul');
@@ -123,11 +124,11 @@ async function muatSemuaPesanPribadi() {
       pesan_priv.appendChild(elemenPesan);
   });
 }
-if (ui.classList.contains('muncul') && rumahPribadi.classList.contains('hilang')){
-  muatSemuaPesanPublik();
-}else if(ui.classList.contains('hilang') && rumahPribadi.classList.contains('muncul')){
+
+pribadi.addEventListener('click', function(){
   muatSemuaPesanPribadi();
-}
+});
+
 yes.addEventListener('click', async function(){
     const input_ide = document.getElementById('input_ide').value;
     const { data, error } = await supabase
