@@ -160,6 +160,7 @@ input::placeholder{
   padding: 3px;
   display: flex;
   flex-direction: column;
+  margin-top: auto;
   bottom: 0;
   margin-left: auto;
   right: 0;
