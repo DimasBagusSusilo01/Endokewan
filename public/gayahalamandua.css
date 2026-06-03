@@ -199,3 +199,23 @@ input::placeholder{
   font-family: 'Share Tech Mono';
   color: chartreuse;
 }
+
+.kotakGame{
+  position: fixed;
+  display: flex;
+  right: 5%;
+  bottom: 5%;
+  width: 8vw;
+  height: 8vh;
+  background-color: darkgreen;
+  border: 3px solid white;
+  border-radius: 10px;
+  box-shadow: 4px 4px 4px 5px rgba(255,255,255,0.5);
+
+}
+.game{
+  border-color: transparent;
+  color: chartreuse;
+  background-color: transparent;
+  font-family: 'Share Tech Mono';
+}
