@@ -47,6 +47,9 @@ kembali.addEventListener('click', function(){
 
     rumahPribadi.classList.add('hilang');
     rumahPribadi.classList.remove('muncul');
+
+    room.classList.add('hilang');
+    room.classList.remove('muncul');
 });
 
 kembali2.addEventListener('click', function(){

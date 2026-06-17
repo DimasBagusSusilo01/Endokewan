@@ -171,7 +171,7 @@ input::placeholder{
 .ketik, .pribadi, .publik{
   border: 0.5px solid black;
 }
-.sesiketik, .popup{
+.sesiketik, .popup, .room{
   position: relative;
   display: flex;
   flex-direction: column;
@@ -218,4 +218,9 @@ input::placeholder{
   color: chartreuse;
   background-color: transparent;
   font-family: 'Share Tech Mono';
+}
+.Join, .Buat{
+  background-color: transparent;
+  border: 1px solid chartreuse;
+  color: chartreuse;
 }
