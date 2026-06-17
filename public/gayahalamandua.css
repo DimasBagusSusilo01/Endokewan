@@ -44,7 +44,7 @@ body{
 #Judul{
   font-size: 28px;
 }
-#tanya1, #nama, #pemain, #pemain2, #judulketik, #kirimide{
+#tanya1, #nama, #pemain, #pemain2,#judul_room, #judulketik, #kirimide{
   font-size: 24px;
 }
 #pemain, #pemain2{
@@ -82,13 +82,13 @@ input::placeholder{
 .rumahPribadi{
   z-index: 11;
 }
-.login.hilang, .ui.hilang, .sesiketik.hilang, .popup.hilang, .rumahPribadi.hilang{
+.login.hilang, .ui.hilang, .sesiketik.hilang, .popup.hilang, .rumahPribadi.hilang, .room.hilang{
   display: none !important;
   pointer-events: none;
   visibility: hidden;
   animation: glitchOut 0.5s steps(2,end);
 }
-.login.muncul, .ui.muncul, .sesiketik.muncul, .popup.muncul, .rumahPribadi.muncul{
+.login.muncul, .ui.muncul, .sesiketik.muncul, .popup.muncul, .rumahPribadi.muncul, .room.muncul{
   display: flex !important;
   pointer-events: auto;
   visibility: visible;
