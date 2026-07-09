@@ -3,6 +3,7 @@ const pribadi = document.getElementById('pribadi');
 const kirim = document.getElementById('kirim_ide');
 const kembali = document.getElementById('kembali');
 const kembali2 = document.getElementById('kembali2');
+const kembali3 = document.getElementById('kembali3');
 const game = document.getElementById('game');
 
 const room = document.getElementById('room');
@@ -30,3 +31,4 @@ game.addEventListener('click', () => gantiMenu(room));
 
 kembali.addEventListener('click', () => gantiMenu(ui));
 kembali2.addEventListener('click', () => gantiMenu(ui));
+kembali3.addEventListener('click', () => gantiMenu(ui));
