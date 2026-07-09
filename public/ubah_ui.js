@@ -10,73 +10,23 @@ const ui = document.getElementById('ui');
 const sesiketik = document.getElementById('sesiketik0');
 const rumahPribadi = document.getElementById('rumahPribadi');
 
-ketik.addEventListener('click', function(){
-    sesiketik.classList.add('muncul');
-    sesiketik.classList.remove('hilang');
+function gantiMenu(menuAktif) {
+    const semuaMenu = [ui, sesiketik, rumahPribadi, room];
+    
+    semuaMenu.forEach(menu => {
+        if (menu === menuAktif) {
+            menu.classList.add('muncul');
+            menu.classList.remove('hilang');
+        } else {
+            menu.classList.add('hilang');
+            menu.classList.remove('muncul');
+        }
+    });
+}
 
-    ui.classList.add('hilang');
-    ui.classList.remove('muncul');
+ketik.addEventListener('click', () => gantiMenu(sesiketik));
+pribadi.addEventListener('click', () => gantiMenu(rumahPribadi));
+game.addEventListener('click', () => gantiMenu(room));
 
-    rumahPribadi.classList.add('hilang');
-    rumahPribadi.classList.remove('muncul');
-
-    room.classList.add('hilang');
-    room.classList.remove('muncul');
-});
-
-pribadi.addEventListener('click', function(){
-    ui.classList.add('hilang');
-    ui.classList.remove('muncul');
-
-    sesiketik.classList.add('hilang');
-    sesiketik.classList.remove('muncul');
-
-    rumahPribadi.classList.add('muncul');
-    rumahPribadi.classList.remove('hilang');
-
-    room.classList.add('hilang');
-    room.classList.remove('muncul');
-});
-
-kembali.addEventListener('click', function(){
-    ui.classList.add('muncul');
-    ui.classList.remove('hilang');
-
-    sesiketik.classList.add('hilang');
-    sesiketik.classList.remove('muncul');
-
-    rumahPribadi.classList.add('hilang');
-    rumahPribadi.classList.remove('muncul');
-
-    room.classList.add('hilang');
-    room.classList.remove('muncul');
-});
-
-kembali2.addEventListener('click', function(){
-    ui.classList.add('muncul');
-    ui.classList.remove('hilang');
-
-    sesiketik.classList.add('hilang');
-    sesiketik.classList.remove('muncul');
-
-    rumahPribadi.classList.add('hilang');
-    rumahPribadi.classList.remove('muncul');
-
-    room.classList.add('hilang');
-    room.classList.remove('muncul');
-});
-
-
-game.addEventListener('click', function(){
-    ui.classList.add('hilang');
-    ui.classList.remove('muncul');
-
-    sesiketik.classList.add('hilang');
-    sesiketik.classList.remove('muncul');
-
-    rumahPribadi.classList.add('hilang');
-    rumahPribadi.classList.remove('muncul');
-
-    room.classList.add('muncul');
-    room.classList.remove('hilang');
-});
+kembali.addEventListener('click', () => gantiMenu(ui));
+kembali2.addEventListener('click', () => gantiMenu(ui));
